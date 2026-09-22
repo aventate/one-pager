@@ -1,28 +1,97 @@
 @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;600;700;800&family=Nunito+Sans:ital,opsz,wght@0,6..12,300;0,6..12,400;0,6..12,600;0,6..12,700;0,6..12,800;1,6..12,400&family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap');
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Appica UI embarque déjà `@import 'tailwindcss'` en tête de sa feuille de styles :
+   l'importer ici une seconde fois dupliquerait toute la couche utilities. */
+@import '@appica/ui-react/styles.css';
 
-:root {
-  --font-sans: 'Nunito Sans', 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-display: 'Bricolage Grotesque', 'Outfit', sans-serif;
+/* Tailwind v4 ignore node_modules par défaut : on déclare explicitement les
+   sources d'Appica pour que ses classes internes soient générées. */
+@source '../node_modules/@appica/ui-react/dist';
+
+/* =========================================================================
+   TOKENS DE MARQUE AVENTATE
+   Appica expose son thème via `@theme inline { --color-x: var(--x) }`.
+   Redéfinir les variables brutes ci-dessous suffit donc à rebrander
+   l'intégralité de la librairie (Button, Card, Badge, Tabs, Slider…).
+   ========================================================================= */
+:root,
+.light {
+  /* Rouge Aventate */
   --primary: #c6283c;
-  --primary-strong: #a80a2a;
-  --primary-muted: #e56267;
-  --primary-soft: #f4d4d8;
   --primary-subtle: #f9e9eb;
-  --fg-intense: #1c1715;
-  --fg-strong: #453f3b;
-  --fg-muted: #69625c;
-  --fg-subtle: #766e69;
-  --bg: #ffffff;
-  --bg-subtle: #fbfaf9;
+  --primary-soft: #f4d4d8;
+  --primary-muted: #e56267;
+  --primary-strong: #a80a2a;
+  --primary-foreground: #ffffff;
+
+  /* Texte */
+  --foreground: #453f3b;
+  --foreground-subtle: #766e69;
+  --foreground-muted: #69625c;
+  --foreground-strong: #453f3b;
+  --foreground-emphasis: #2a2422;
+  --foreground-intense: #1c1715;
+  --foreground-inverse: #ffffff;
+
+  /* Fonds — blanc prédominant */
+  --background: #ffffff;
+  --background-subtle: #fbfaf9;
+  --background-muted: #f5f3f1;
+  --background-strong: #eae6e4;
+  --background-inverse: #1c1715;
+
+  /* Bordures */
   --border: #eae6e4;
+  --border-muted: #f2efed;
   --border-strong: #d8d4d0;
+  --border-emphasis: #c4bfba;
+  --border-intense: #69625c;
+  --border-inverse: #1c1715;
+  --border-overlay: #f2efed;
+
+  /* Anneaux de focus alignés sur la marque */
+  --focus-ring: var(--primary-soft);
+  --focus-ring-primary: var(--primary-soft);
+  --focus-ring-input: var(--primary-soft);
+
+  /* Ombres chaudes plutôt que bleutées */
+  --shadow-color: rgb(28 23 21 / 10%);
+  --selection-color: rgb(198 40 60 / 12%);
+
+  /* Typographie de marque */
+  --font-sans: 'Nunito Sans', 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Bricolage Grotesque', 'Outfit', 'Plus Jakarta Sans', sans-serif;
 }
 
-/* ÉCHELLE ET ZOOM IMMERSIF POUR CORRESPONDRE EXACTEMENT À LA CAPTURE 2 */
+/* =========================================================================
+   ALIAS DE COMPATIBILITÉ
+   Le code applicatif utilise une convention légèrement différente de celle
+   d'Appica (`primary-base` au lieu de `primary`, `surface-*` au lieu de
+   `background-*`, `border-subtle`). Ces alias évitent de réécrire plus de
+   200 occurrences et suppriment d'un coup les classes qui ne produisaient
+   aucun CSS sous Tailwind v3.
+   ========================================================================= */
+@theme {
+  /* Valeur littérale (et non `var(--font-display)`) : enregistrer le token
+     sous son propre nom créerait une référence circulaire dont la
+     résolution ne tiendrait qu'à l'ordre de la cascade. */
+  --font-display: 'Bricolage Grotesque', 'Outfit', 'Plus Jakarta Sans', sans-serif;
+}
+
+@theme inline {
+  --color-primary-base: var(--primary);
+
+  --color-border-subtle: var(--border);
+
+  --color-surface: var(--background);
+  --color-surface-subtle: var(--background-subtle);
+  --color-surface-muted: var(--background-muted);
+  --color-surface-strong: var(--background-strong);
+}
+
+/* =========================================================================
+   BASE DU DOCUMENT
+   ========================================================================= */
 html {
   font-size: 16px;
   scroll-behavior: smooth;
@@ -34,6 +103,7 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Échelle et zoom immersif pour correspondre exactement à la capture 2 */
 @media (min-width: 1024px) {
   html {
     zoom: 1.45;
@@ -54,15 +124,23 @@ html {
 
 body {
   background-color: #f8f6f5;
-  color: #1c1715;
+  color: var(--foreground-intense);
   overflow-x: hidden;
   margin: 0;
   padding: 0;
   position: relative;
 }
 
-/* HALO LUMINEUX GLOBAL D'ARRIÈRE-PLAN · CHARTE GRAPHIQUE AVENTATE OS */
-.dashboard-ambient-light, .aventate-ambient-glow {
+::selection {
+  background-color: var(--primary);
+  color: #ffffff;
+}
+
+/* =========================================================================
+   HALO LUMINEUX GLOBAL D'ARRIÈRE-PLAN · CHARTE GRAPHIQUE AVENTATE OS
+   ========================================================================= */
+.dashboard-ambient-light,
+.aventate-ambient-glow {
   position: fixed;
   inset: 0;
   width: 100vw;
@@ -72,13 +150,14 @@ body {
   overflow: hidden;
 }
 
-.dashboard-ambient-light::before, .aventate-ambient-glow::before {
+.dashboard-ambient-light::before,
+.aventate-ambient-glow::before {
   content: '';
   position: fixed;
   inset: 0;
   width: 100vw;
   height: 100vh;
-  background: 
+  background:
     radial-gradient(ellipse 65% 45% at 10% 10%, rgba(199, 40, 61, 0.16) 0%, transparent 60%),
     radial-gradient(ellipse 60% 40% at 90% 15%, rgba(245, 158, 11, 0.13) 0%, transparent 60%),
     radial-gradient(ellipse 70% 50% at 50% 50%, rgba(137, 28, 58, 0.09) 0%, transparent 70%),
@@ -89,7 +168,8 @@ body {
   filter: blur(60px);
 }
 
-.dashboard-ambient-light::after, .aventate-ambient-glow::after {
+.dashboard-ambient-light::after,
+.aventate-ambient-glow::after {
   content: '';
   position: fixed;
   top: 15%;
@@ -102,7 +182,9 @@ body {
   filter: blur(70px);
 }
 
-/* BARRE DE PROGRESSION DE LECTURE HAUT DE PAGE */
+/* =========================================================================
+   BARRE DE PROGRESSION DE LECTURE HAUT DE PAGE — toujours visible
+   ========================================================================= */
 #scroll-progress {
   position: fixed;
   top: 0;
@@ -114,9 +196,13 @@ body {
   box-shadow: 0 0 10px rgba(199, 40, 61, 0.6);
 }
 
-/* ANIMATIONS CSS HAUT DE GAMME */
+/* =========================================================================
+   ANIMATIONS CSS HAUT DE GAMME
+   Conservées : Appica ne fournit pas d'équivalent direct.
+   ========================================================================= */
 @keyframes pulse-soft {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
     box-shadow: 0 4px 18px -2px rgba(199, 40, 61, 0.32);
   }
@@ -136,7 +222,8 @@ body {
 }
 
 @keyframes bounce-gentle {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {
@@ -156,7 +243,8 @@ body {
 }
 
 @keyframes glow-pulse {
-  0%, 100% {
+  0%,
+  100% {
     box-shadow: 0 4px 20px -2px rgba(199, 40, 61, 0.35);
   }
   50% {
@@ -172,6 +260,10 @@ body {
   animation: glow-pulse 3s infinite ease-in-out;
 }
 
+.animate-bounce-gentle {
+  animation: bounce-gentle 2s infinite ease-in-out;
+}
+
 .interactive-card {
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -181,40 +273,57 @@ body {
   box-shadow: 0 16px 32px -8px rgba(28, 23, 21, 0.08);
 }
 
-/* EFFETS LUMINEUX LUXE CLAIR BRANDÉ AVENTATE */
+/* =========================================================================
+   EFFETS LUMINEUX LUXE CLAIR BRANDÉS AVENTATE
+   Déclarés hors `@layer` : la CSS non layerisée l'emporte sur les
+   utilitaires Tailwind, ce qui garantit que le dégradé prend le dessus
+   sur le fond plein du composant Button d'Appica.
+   ========================================================================= */
 .card-luxury-white {
   background: #ffffff;
-  border: 1px solid #eae6e4;
-  box-shadow: 0 10px 30px -5px rgba(28, 23, 21, 0.04), 0 4px 6px -2px rgba(28, 23, 21, 0.02);
+  border: 1px solid var(--border);
+  box-shadow:
+    0 10px 30px -5px rgba(28, 23, 21, 0.04),
+    0 4px 6px -2px rgba(28, 23, 21, 0.02);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .card-luxury-white:hover {
   transform: translateY(-3px);
   border-color: rgba(198, 40, 60, 0.35);
-  box-shadow: 0 20px 35px -8px rgba(198, 40, 60, 0.10), 0 8px 12px -3px rgba(28, 23, 21, 0.04);
+  box-shadow:
+    0 20px 35px -8px rgba(198, 40, 60, 0.10),
+    0 8px 12px -3px rgba(28, 23, 21, 0.04);
 }
 
-.gold-glow-button, .aventate-glow-button {
+.gold-glow-button,
+.aventate-glow-button {
   background: linear-gradient(135deg, #c6283c 0%, #a80a2a 100%);
-  box-shadow: 0 4px 18px -2px rgba(198, 40, 60, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  box-shadow:
+    0 4px 18px -2px rgba(198, 40, 60, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
   color: #ffffff !important;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.gold-glow-button:hover, .aventate-glow-button:hover {
+.gold-glow-button:hover,
+.aventate-glow-button:hover {
   background: linear-gradient(135deg, #d83046 0%, #940722 100%);
   transform: translateY(-1.5px);
   box-shadow: 0 8px 24px -2px rgba(198, 40, 60, 0.42);
 }
 
-.text-gradient-gold, .text-gradient-aventate {
+.text-gradient-gold,
+.text-gradient-aventate {
   background: linear-gradient(135deg, #c6283c 0%, #a80a2a 70%, #1c1715 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* FLOATING DOCK NAVIGATION */
+/* =========================================================================
+   FLOATING DOCK NAVIGATION
+   ========================================================================= */
 .floating-dock {
   position: fixed;
   bottom: 24px;
@@ -224,33 +333,30 @@ body {
   background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-  border: 1px solid rgba(226, 232, 240, 0.9);
-  box-shadow: 0 12px 36px -4px rgba(15, 23, 42, 0.12), 0 0 15px rgba(245, 158, 11, 0.15);
+  border: 1px solid var(--border);
+  box-shadow:
+    0 12px 36px -4px rgba(28, 23, 21, 0.12),
+    0 0 15px rgba(198, 40, 60, 0.15);
   border-radius: 9999px;
 }
 
-/* Custom Scrollbar */
+/* =========================================================================
+   SCROLLBAR PERSONNALISÉE
+   ========================================================================= */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
+
 ::-webkit-scrollbar-track {
-  background: #f8fafc;
-}
-::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 9999px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #d97706;
+  background: var(--background-subtle);
 }
 
-@media print {
-  body {
-    background: #ffffff !important;
-    color: #000000 !important;
-  }
-  header, nav, .floating-dock, .no-print, button:not(.print-include) {
-    display: none !important;
-  }
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-muted);
 }
