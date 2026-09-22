@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import { ArrowLeft, Phone, ChevronRight, LayoutDashboard, ShieldCheck } from 'lucide-react';
+import { Button, Separator } from '@appica/ui-react';
+import { ArrowLeft, Phone, ChevronRight } from 'lucide-react';
 import SectionDashboardBuraliste from '../components/SectionDashboardBuraliste';
 import ContactModal from '../components/ContactModal';
 
@@ -9,7 +10,7 @@ export default function EspaceBuralistePage() {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-[#c6283c] selection:text-white relative">
+    <div className="min-h-screen bg-white text-foreground-intense font-sans relative">
       <Head>
         <title>Espace Buraliste · Console Commerçante | SERVICES INDEP × AVENTATE SAS</title>
         <meta
@@ -27,15 +28,17 @@ export default function EspaceBuralistePage() {
       <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-xl border-b border-border-subtle shadow-xs py-3 text-foreground-intense">
         <div className="w-full max-w-[1780px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between gap-4">
-            
+
             {/* Bouton de retour rapide vers la présentation */}
-            <Link
-              href="/"
-              className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl bg-surface-subtle hover:bg-slate-200 border border-border-subtle text-foreground-strong font-bold text-xs sm:text-sm transition-all hover:-translate-x-0.5 shrink-0"
+            <Button
+              variant="soft"
+              size="sm"
+              className="rounded-xl font-bold text-xs sm:text-sm transition-all hover:-translate-x-0.5 shrink-0"
+              render={<Link href="/" />}
             >
               <ArrowLeft className="w-4 h-4 text-primary-base" />
               <span>Retour à la présentation</span>
-            </Link>
+            </Button>
 
             {/* Alliance des Logos avec distinction claire */}
             <div className="flex items-center gap-3 sm:gap-4 shrink-0">
@@ -44,9 +47,9 @@ export default function EspaceBuralistePage() {
                 alt="Services Indep"
                 className="h-9 sm:h-11 md:h-12 w-auto object-contain shrink-0"
               />
-              <div className="h-6 w-px bg-slate-200 hidden sm:block shrink-0" />
+              <Separator orientation="vertical" className="h-6 hidden sm:block shrink-0" />
               <div className="hidden sm:flex flex-col text-left">
-                <span className="text-[9px] font-black uppercase tracking-wider text-slate-400 leading-none">
+                <span className="text-[9px] font-black uppercase tracking-wider text-foreground-subtle leading-none">
                   Opéré par
                 </span>
                 <img
@@ -59,14 +62,14 @@ export default function EspaceBuralistePage() {
 
             {/* Action Directe */}
             <div className="flex items-center gap-2.5 shrink-0">
-              <button
+              <Button
                 onClick={() => setIsContactModalOpen(true)}
-                className="gold-glow-button inline-flex items-center gap-2 px-4 sm:px-5 py-2 text-xs sm:text-sm font-black text-white rounded-xl shadow transition-all whitespace-nowrap"
+                className="aventate-glow-button font-black rounded-xl shadow whitespace-nowrap"
               >
                 <Phone className="w-4 h-4" />
                 <span className="hidden sm:inline">Être rappelé par Thomas M.</span>
                 <ChevronRight className="w-4 h-4 opacity-70" />
-              </button>
+              </Button>
             </div>
 
           </div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Head from 'next/head';
 import Navbar from '../components/Navbar';
 import Section01Presence from '../components/Section01Presence';
@@ -16,7 +16,7 @@ export default function Home() {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-[#c6283c] selection:text-white relative">
+    <div className="min-h-screen bg-white text-foreground-intense font-sans relative">
       <Head>
         <title>Solution Digitale Commerces &amp; Buralistes | SERVICES INDEP × AVENTATE SAS</title>
         <meta
@@ -50,12 +50,12 @@ export default function Home() {
         <SectionRoiSimulator onOpenContact={() => setIsContactModalOpen(true)} />
 
         {/* 04 — Votre offre : Création + Formules d'abonnement + 9 piliers techniques (Page 4 PDF) */}
-        <Section04OffreTarifs onOpenContact={() => setIsContactModalOpen(true)} />
+        <Section04OffreTarifs />
 
         {/* 05 — Votre abonnement en détail : 4h incluses + Inclus/Non inclus (Page 5 PDF) */}
         <Section05AbonnementDetail />
 
-        {/* 06 — Conclusion, Prise de contact avec Thomas & Impression PDF */}
+        {/* 06 — Conclusion et prise de contact avec Thomas */}
         <Section06ClosingContact />
       </main>
 
