@@ -1,0 +1,162 @@
+import React from 'react';
+import { ShoppingBag, List, ShoppingCart, Store, ExternalLink, CheckCircle2, ArrowRight, Clock, MapPin, Sparkles, Shield, Phone, ChevronRight } from 'lucide-react';
+
+export default function Section02OutilCommercial() {
+  const demoUrl = "https://website-client1.vercel.app";
+
+  const clientActions = [
+    {
+      icon: ShoppingBag,
+      title: "Consulter vos produits",
+      desc: "Votre offre consultable à tout moment sur mobile avec des informations claires et à jour.",
+    },
+    {
+      icon: List,
+      title: "Découvrir vos services",
+      desc: "Point relais colis, FDJ, timbres, compte Nickel expliqués en toute simplicité.",
+    },
+    {
+      icon: ShoppingCart,
+      title: "Préparer une commande",
+      desc: "Le client prépare sa demande en amont sans encombrer la file d'attente.",
+    },
+    {
+      icon: Store,
+      title: "Retrait express magasin",
+      desc: "La commande est préparée d'avance, le client passe simplement la récupérer.",
+    },
+  ];
+
+  return (
+    <section id="section-02" className="py-16 sm:py-20 border-b border-border-subtle bg-[#fcfbf9]">
+      <div className="w-full max-w-[1780px] mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* En-Tête Centré */}
+        <div className="mb-12 sm:mb-16 text-center max-w-6xl mx-auto">
+          <div className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-primary-subtle border border-primary-soft mb-6 shadow-xs">
+            <span className="w-2.5 h-2.5 rounded-full bg-primary-base animate-pulse shrink-0" />
+            <span className="text-xs sm:text-sm font-black tracking-widest text-primary-strong uppercase leading-none">
+              02 · UN SITE QUI DEVIENT UN OUTIL COMMERCIAL
+            </span>
+          </div>
+
+          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight text-foreground-intense mb-6">
+            Transformer votre site en <span className="text-gradient-aventate">véritable outil commercial.</span>
+          </h2>
+
+          <p className="text-lg sm:text-xl text-slate-600 leading-relaxed font-normal mx-auto max-w-5xl">
+            Selon vos besoins et votre mode de travail, votre site va bien plus loin que la simple présentation : il valorise vos services, fluidifie les commandes et capte des opportunités commerciales qualifiées.
+          </p>
+        </div>
+          
+          <div className="mb-16 text-center">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary-subtle border border-primary-soft text-primary-strong text-xs font-black uppercase tracking-wider mb-3">
+              <span>CE QUE VOS CLIENTS PEUVENT Y FAIRE</span>
+            </div>
+            <h3 className="font-display text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight">
+              Un site qui rend service au quotidien
+            </h3>
+            <p className="text-base sm:text-lg text-slate-500 mt-4 max-w-4xl mx-auto font-medium">
+              Le fonctionnement est entièrement personnalisé pour chaque établissement. Rien n'est imposé : les modules sont activés selon vos priorités.
+            </p>
+          </div>
+
+          {/* Grille 4 fonctionnalités grand format */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-20 text-left">
+            {clientActions.map((action, idx) => {
+              const Icon = action.icon;
+              return (
+                <div
+                  key={idx}
+                  className="bg-white p-8 sm:p-10 rounded-3xl border border-primary-soft/60 hover:border-primary-base/50 shadow-xs hover:shadow-lg transition-all flex flex-col justify-between"
+                >
+                  <div>
+                    <div className="w-14 h-14 rounded-2xl bg-primary-subtle border border-primary-soft text-primary-base flex items-center justify-center mb-6 shadow-xs">
+                      <Icon className="w-7 h-7" />
+                    </div>
+                    <h4 className="font-display font-black text-xl sm:text-2xl text-slate-900 mb-3">
+                      {action.title}
+                    </h4>
+                    <p className="text-base text-slate-600 leading-relaxed font-medium">
+                      {action.desc}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+
+          {/* 3. CARTE DE CONVERSION DIRECTE (SANS APERÇU, LIEN DIRECT EN DIRECT) FOND BLANC LUXE */}
+          <div className="relative overflow-hidden bg-white text-slate-900 p-10 sm:p-16 lg:p-20 rounded-[36px] border border-[#eae6e4] hover:border-[#c6283c]/40 shadow-xl text-center">
+            
+            <div className="relative z-10 max-w-4xl mx-auto space-y-8">
+              
+              <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#f9e9eb] border border-[#f4d4d8] text-[#c6283c] text-xs sm:text-sm font-black uppercase tracking-wider">
+                <Sparkles className="w-4 h-4 text-[#c6283c]" />
+                <span>DÉMONSTRATION RÉELLE EN LIGNE</span>
+              </div>
+
+              <h4 className="font-display text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-tight">
+                Tabac Presse Paris 11 <br />
+                <span className="text-gradient-aventate">La vitrine digitale en action</span>
+              </h4>
+
+              <p className="text-lg sm:text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto font-normal">
+                Découvrez concrètement l'exemple conçu pour un commerce de quartier (42 rue de la Roquette, Paris 11e). Explorez la fluidité de navigation, la présentation claire des services et la passerelle d'opportunités commerciales.
+              </p>
+
+              {/* 3 garanties en pillules fond clair */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 text-left">
+                <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 flex items-center gap-3.5 shadow-sm">
+                  <div className="w-10 h-10 rounded-xl bg-[#f9e9eb] text-[#c6283c] flex items-center justify-center shrink-0 font-black">
+                    01
+                  </div>
+                  <div>
+                    <span className="text-sm font-bold text-slate-900 block">Horaires 7j/7</span>
+                    <span className="text-xs text-slate-500">Certifiés en temps réel</span>
+                  </div>
+                </div>
+
+                <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 flex items-center gap-3.5 shadow-sm">
+                  <div className="w-10 h-10 rounded-xl bg-[#f9e9eb] text-[#c6283c] flex items-center justify-center shrink-0 font-black">
+                    02
+                  </div>
+                  <div>
+                    <span className="text-sm font-bold text-slate-900 block">Rayons &amp; Relais</span>
+                    <span className="text-xs text-slate-500">FDJ, colis, presse, vapotage</span>
+                  </div>
+                </div>
+
+                <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 flex items-center gap-3.5 shadow-sm">
+                  <div className="w-10 h-10 rounded-xl bg-[#f9e9eb] text-[#c6283c] flex items-center justify-center shrink-0 font-black">
+                    03
+                  </div>
+                  <div>
+                    <span className="text-sm font-bold text-slate-900 block">Commissions</span>
+                    <span className="text-xs text-slate-500">Assurance &amp; Alarme Homiris</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* GRAND BOUTON MAJESTUEUX : VISITER LE SITE EN DIRECT */}
+              <div className="pt-6">
+                <a
+                  href={demoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="gold-glow-button inline-flex items-center justify-center gap-4 px-10 sm:px-14 py-5 text-lg sm:text-2xl font-black text-white rounded-2xl shadow-xl hover:scale-105 active:scale-95 transition-all"
+                >
+                  <span>Visiter le site en direct</span>
+                  <ExternalLink className="w-6 h-6 sm:w-7 sm:h-7" />
+                </a>
+              </div>
+            </div>
+
+          </div>        </div>
+
+    </section>
+  );
+}
+
+
