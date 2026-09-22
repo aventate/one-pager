@@ -174,7 +174,7 @@ export default function Section06ClosingContact() {
             </div>
           </div>
 
-          <p className="text-xs sm:text-sm text-foreground-muted text-center lg:text-right font-medium max-w-2xl">
+          <p className="text-xs sm:text-sm text-foreground-muted text-center lg:text-right font-medium max-w-3xl">
             Partenariat officiel : solution métier conçue pour <strong>Services Indep</strong> et opérée techniquement par <strong>AVENTATE SAS</strong>.
           </p>
         </div>

@@ -11,3 +11,7 @@ yarn-error.log*
 .vercel
 next-env.d.ts
 *.tsbuildinfo
+
+# Générés automatiquement par le serveur de dev Next 16 à chaque lancement
+AGENTS.md
+CLAUDE.md

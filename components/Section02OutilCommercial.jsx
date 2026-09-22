@@ -113,7 +113,7 @@ export default function Section02OutilCommercial() {
               <span className="text-gradient-aventate">La vitrine digitale en action</span>
             </h4>
 
-            <p className="text-lg sm:text-xl text-foreground-muted leading-relaxed max-w-4xl mx-auto font-normal">
+            <p className="text-lg sm:text-xl text-foreground-muted leading-relaxed max-w-6xl mx-auto font-normal">
               Découvrez concrètement l'exemple conçu pour un commerce de quartier (42 rue de la Roquette, Paris 11e). Explorez la fluidité de navigation, la présentation claire des services et la passerelle d'opportunités commerciales.
             </p>
 

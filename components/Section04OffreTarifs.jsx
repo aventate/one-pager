@@ -68,7 +68,7 @@ export default function Section04OffreTarifs() {
               </div>
             </div>
 
-            <div className="max-w-2xl bg-primary-subtle/50 p-6 rounded-2xl border border-primary-soft text-sm sm:text-base text-foreground-strong leading-relaxed font-medium">
+            <div className="max-w-3xl bg-primary-subtle/50 p-6 rounded-2xl border border-primary-soft text-sm sm:text-base text-foreground-strong leading-relaxed font-medium">
               <span className="font-display font-bold text-primary-strong block mb-1 text-base sm:text-lg">
                 Un budget adapté à votre projet
               </span>
@@ -227,7 +227,7 @@ export default function Section04OffreTarifs() {
           {/* Engagement */}
           <Alert
             layout="inline"
-            className="mt-8 rounded-2xl bg-surface-subtle border border-border-subtle text-xs sm:text-sm text-foreground-strong justify-center gap-3 shadow-xs text-center font-medium max-w-3xl mx-auto"
+            className="mt-8 rounded-2xl bg-surface-subtle border border-border-subtle text-xs sm:text-sm text-foreground-strong justify-center gap-3 shadow-xs text-center font-medium max-w-5xl mx-auto"
           >
             <AlertIcon>
               <Clock className="w-4 h-4 text-primary-base shrink-0" />

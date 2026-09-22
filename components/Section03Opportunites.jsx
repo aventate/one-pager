@@ -120,7 +120,7 @@ export default function Section03Opportunites() {
             <h4 className="font-display font-black text-3xl sm:text-4xl lg:text-5xl text-foreground-intense">
               Un processus fluide en 5 étapes
             </h4>
-            <p className="text-sm sm:text-base text-foreground-muted mt-2 font-medium max-w-3xl mx-auto">
+            <p className="text-sm sm:text-base text-foreground-muted mt-2 font-medium max-w-5xl mx-auto">
               Chaque étape est tracée en temps réel dans votre Espace Buraliste pour une transparence absolue.
             </p>
           </div>
