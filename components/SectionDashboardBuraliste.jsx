@@ -324,39 +324,38 @@ export default function SectionDashboardBuraliste({ onOpenContact }) {
   return (
     <section id="section-dashboard" className="pt-6 sm:pt-8 bg-transparent">
 
-      {/* 1. Grand En-Tête Lumineux Centré */}
-      <div className="bg-transparent text-foreground-intense py-16 sm:py-20 border-b border-border-subtle text-center">
+      {/* 1. En-tête resserré : va à l'essentiel pour laisser la démo
+          (les onglets de la console) apparaître le plus tôt possible. */}
+      <div className="bg-transparent text-foreground-intense py-8 sm:py-10 border-b border-border-subtle text-center">
         <div className="w-full max-w-[1780px] mx-auto px-4 sm:px-6 lg:px-8">
 
-          <div className="mb-6">
+          <div className="mb-4">
             <SectionEyebrow icon={LayoutDashboard}>
               ESPACE BURALISTE · CONSOLE COMMERÇANTE
             </SectionEyebrow>
           </div>
 
-          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tight leading-[1.1] text-foreground-intense mb-6">
-            Votre poste de pilotage épuré, <br />
-            <span className="text-gradient-gold">conçu pour vous faire gagner du temps et de l'argent.</span>
+          <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-[1.1] text-foreground-intense mb-3">
+            Votre poste de pilotage épuré, <span className="text-gradient-gold">conçu pour vous faire gagner du temps et de l'argent.</span>
           </h1>
 
-          <p className="text-lg sm:text-xl lg:text-2xl text-foreground-strong max-w-6xl mx-auto leading-relaxed font-normal">
-            Accessible depuis n’importe quel ordinateur, tablette ou écran de caisse. Zéro paramétrage technique, zéro formation requise : tout est lisible, fluide et utilisable immédiatement à tout âge.
+          <p className="text-base sm:text-lg text-foreground-strong max-w-4xl mx-auto leading-relaxed font-normal mb-5">
+            Accessible depuis n'importe quel ordinateur, tablette ou écran de caisse. Zéro paramétrage technique.
           </p>
 
-          {/* 3 piliers de réassurance */}
-          <Separator className="mt-8" />
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10 pt-8 text-base sm:text-lg text-foreground-strong font-semibold">
-            <div className="inline-flex items-center gap-3">
-              <CheckCircle2 className="w-5 h-5 text-primary-base shrink-0" />
-              <span className="leading-tight">Prise en main en 30 secondes chrono</span>
+          {/* 3 piliers de réassurance, compacts */}
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-foreground-strong font-semibold">
+            <div className="inline-flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-primary-base shrink-0" />
+              <span className="leading-tight">Prise en main en 30 secondes</span>
             </div>
-            <div className="inline-flex items-center gap-3">
-              <CheckCircle2 className="w-5 h-5 text-primary-base shrink-0" />
-              <span className="leading-tight">Commissions partenaires tracées au centime près</span>
+            <div className="inline-flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-primary-base shrink-0" />
+              <span className="leading-tight">Commissions tracées au centime près</span>
             </div>
-            <div className="inline-flex items-center gap-3">
-              <CheckCircle2 className="w-5 h-5 text-primary-base shrink-0" />
-              <span className="leading-tight">Radar tendances d'achats de votre quartier</span>
+            <div className="inline-flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-primary-base shrink-0" />
+              <span className="leading-tight">Radar tendances de quartier</span>
             </div>
           </div>
 
@@ -405,7 +404,7 @@ export default function SectionDashboardBuraliste({ onOpenContact }) {
       )}
 
       {/* 2. LE TABLEAU DE BORD COMMERCIAL DE PRESTIGE (PLEINE LARGEUR, THÈME BLANC / PERLE LUXE) */}
-      <div className="py-10 sm:py-16">
+      <div className="py-6 sm:py-8">
         <div className="w-full max-w-[1780px] mx-auto px-4 sm:px-6 lg:px-8">
 
           {/* Console Principale */}
@@ -420,19 +419,19 @@ export default function SectionDashboardBuraliste({ onOpenContact }) {
                 (nom du commerce, puis onglets pleine largeur) plutôt que
                 côte à côte à partir de xl, ce qui condamnait les onglets à
                 une largeur trop étroite et forçait un défilement horizontal. */}
-            <div className="bg-surface-subtle border-b border-border-subtle p-6 sm:p-8 space-y-6">
+            <div className="bg-surface-subtle border-b border-border-subtle p-4 sm:p-5 space-y-4">
 
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-2xl bg-primary-subtle border border-primary-soft flex items-center justify-center text-primary-base shrink-0 shadow-xs">
-                  <LayoutDashboard className="w-6 h-6" />
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-2xl bg-primary-subtle border border-primary-soft flex items-center justify-center text-primary-base shrink-0 shadow-xs">
+                  <LayoutDashboard className="w-5 h-5" />
                 </div>
                 <div>
                   <div className="flex items-center gap-3">
-                    <h2 className="font-display font-black text-xl sm:text-2xl text-foreground-intense">
+                    <h2 className="font-display font-black text-lg sm:text-xl text-foreground-intense">
                       Tabac Presse &amp; FDJ du Centre
                     </h2>
                   </div>
-                  <p className="text-xs sm:text-sm text-foreground-muted mt-1 font-medium">
+                  <p className="text-xs text-foreground-muted mt-0.5 font-medium">
                     Compte Commerçant Buraliste certifié · Partenaire Services Indep &amp; AVENTATE
                   </p>
                 </div>

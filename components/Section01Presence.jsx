@@ -281,10 +281,10 @@ export default function Section01Presence() {
                       <div
                         className="relative flex flex-col items-center text-center group [perspective:900px]"
                       >
-                        {/* Numéro en filigrane : contour visible plutôt qu'un
-                            aplat trop pâle, pour rester lisible en fond. */}
+                        {/* Numéro au-dessus de la bulle, bien visible plutôt
+                            qu'en filigrane derrière. */}
                         <span
-                          className="absolute -top-8 sm:-top-9 font-display text-7xl sm:text-8xl font-black text-transparent select-none pointer-events-none [-webkit-text-stroke:1.5px_var(--primary-muted)] opacity-70 transition-opacity duration-300 group-hover:opacity-100"
+                          className="font-display text-sm font-black text-primary-base mb-2 select-none"
                           aria-hidden="true"
                         >
                           {s.num}

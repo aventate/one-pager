@@ -1,5 +1,5 @@
 import { Badge, Card, CardTitle, CardDescription, Separator } from '@appica/ui-react';
-import { Shield, ArrowDown, ShieldCheck, Building2, Landmark, HeartPulse, Umbrella, Scale, Briefcase, HeartHandshake, Users, LayoutGrid, CheckCircle2 } from 'lucide-react';
+import { Shield, ShieldCheck, Building2, Landmark, HeartPulse, Umbrella, Scale, Briefcase, HeartHandshake, Users, LayoutGrid, CheckCircle2 } from 'lucide-react';
 import SectionEyebrow from './SectionEyebrow';
 
 export default function Section03Opportunites() {
@@ -67,12 +67,12 @@ export default function Section03Opportunites() {
       <div className="w-full max-w-[1780px] mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* En-Tête Centré */}
-        <div className="mb-12 sm:mb-16 text-center max-w-7xl mx-auto">
-          <div className="mb-6">
+        <div className="mb-8 sm:mb-10 text-center max-w-7xl mx-auto">
+          <div className="mb-4">
             <SectionEyebrow number="03">OPPORTUNITÉS COMPLÉMENTAIRES</SectionEyebrow>
           </div>
 
-          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight text-foreground-intense mb-6">
+          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight text-foreground-intense mb-4">
             Développez de nouvelles opportunités <span className="text-gradient-aventate">avec vos clients.</span>
           </h2>
 
@@ -83,10 +83,10 @@ export default function Section03Opportunites() {
 
         {/* Offre partenaire unique : Assurance */}
         <Card
-          className="[--card-radius:1.75rem] shadow-sm mb-20"
-          contentProps={{ className: 'p-8 sm:p-12 lg:p-16' }}
+          className="[--card-radius:1.75rem] shadow-sm mb-8"
+          contentProps={{ className: 'p-6 sm:p-10 lg:p-12' }}
         >
-          <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6 mb-10 pb-10 border-b border-border-subtle">
+          <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6 mb-8 pb-8 border-b border-border-subtle">
             <div className="flex items-start gap-5">
               <div className="w-16 h-16 rounded-2xl bg-primary-subtle text-primary-base border border-primary-soft flex items-center justify-center shadow-xs shrink-0">
                 <Shield className="w-8 h-8" />
@@ -112,7 +112,7 @@ export default function Section03Opportunites() {
           </div>
 
           {/* Particuliers */}
-          <div className="mb-10">
+          <div className="mb-6">
             <div className="flex items-center gap-3 mb-1">
               <ShieldCheck className="w-5 h-5 text-primary-base shrink-0" />
               <h3 className="font-display font-black text-xl text-foreground-intense">Particuliers</h3>
@@ -179,82 +179,59 @@ export default function Section03Opportunites() {
           </div>
         </Card>
 
-        {/* Déroulement 5 étapes épuré & mis en valeur */}
+        {/* Déroulement 5 étapes : version compacte pour ne pas allonger
+            inutilement la section (fini les gros connecteurs verticaux). */}
         <Card
-          className="[--card-radius:2rem] shadow-md mb-20"
-          contentProps={{ className: 'p-8 sm:p-14 lg:p-16 relative overflow-hidden' }}
+          className="[--card-radius:2rem] shadow-md"
+          contentProps={{ className: 'p-6 sm:p-10 lg:p-12 relative overflow-hidden' }}
         >
-          <div className="text-center mb-12">
-            <div className="mb-3">
+          <div className="text-center mb-8">
+            <div className="mb-2">
               <SectionEyebrow tone="sm">COMMENT ÇA FONCTIONNE</SectionEyebrow>
             </div>
-            <h4 className="font-display font-black text-3xl sm:text-4xl lg:text-5xl text-foreground-intense">
+            <h4 className="font-display font-black text-2xl sm:text-3xl text-foreground-intense">
               Un processus fluide en 5 étapes
             </h4>
-            <p className="text-sm sm:text-base text-foreground-muted mt-2 font-medium max-w-5xl mx-auto">
-              Chaque étape est tracée en temps réel dans votre Espace Buraliste pour une transparence absolue.
-            </p>
           </div>
 
-          <div className="space-y-4 max-w-6xl mx-auto">
+          <div className="space-y-2.5 max-w-6xl mx-auto">
             {steps.map((step) => (
-              <div key={step.num}>
-                <div className="group bg-white hover:bg-primary-subtle/30 p-6 sm:p-7 rounded-2xl border border-primary-soft/80 hover:border-primary-base/50 hover:shadow-md transition-all duration-300 flex flex-col md:flex-row md:items-center justify-between gap-5">
-                  <div className="flex items-center gap-5 sm:gap-7">
-                    <Badge
-                      variant="soft"
-                      className="font-mono font-black text-xs sm:text-sm px-3.5 py-2 rounded-xl bg-foreground-intense text-white before:bg-transparent shadow-xs shrink-0"
-                    >
-                      {step.num}
-                    </Badge>
-                    <div>
-                      <span className="font-display font-bold text-base sm:text-lg text-foreground-intense block">
-                        {step.text}
-                      </span>
-                      <span className="text-xs sm:text-sm text-foreground-muted font-medium">
-                        {step.detail}
-                      </span>
-                    </div>
-                  </div>
-                  <SectionEyebrow
-                    tone="sm"
-                    className="hidden sm:inline-flex self-end md:self-auto normal-case tracking-normal font-bold"
-                  >
-                    {step.tag}
-                  </SectionEyebrow>
-                </div>
-
-                {/* Connecteur animé */}
-                <div className="flex flex-col items-center justify-center py-1">
-                  <div className="w-0.5 h-3 bg-gradient-to-b from-primary-base/50 to-primary-base/20" />
-                  <ArrowDown className="w-4 h-4 text-primary-base/70 animate-bounce-gentle" />
+              <div
+                key={step.num}
+                className="group bg-white hover:bg-primary-subtle/30 p-4 sm:p-5 rounded-2xl border border-primary-soft/80 hover:border-primary-base/50 transition-all duration-300 flex items-center gap-4 sm:gap-6"
+              >
+                <Badge
+                  variant="soft"
+                  className="font-mono font-black text-xs px-3 py-1.5 rounded-xl bg-foreground-intense text-white before:bg-transparent shadow-xs shrink-0"
+                >
+                  {step.num}
+                </Badge>
+                <div className="flex-1 min-w-0">
+                  <span className="font-display font-bold text-sm sm:text-base text-foreground-intense block">
+                    {step.text}
+                  </span>
+                  <span className="text-xs text-foreground-muted font-medium">
+                    {step.detail}
+                  </span>
                 </div>
               </div>
             ))}
 
             {/* Étape 05 : LE POINT D'ORGUE MIS EN VALEUR */}
-            <div className="group bg-gradient-to-r from-primary-subtle/70 via-white to-primary-subtle/40 p-6 sm:p-7 rounded-2xl border-2 border-primary-base shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col md:flex-row md:items-center justify-between gap-5">
-              <div className="flex items-center gap-5 sm:gap-7">
-                <Badge
-                  variant="soft"
-                  className="font-mono font-black text-xs sm:text-sm px-3.5 py-2 rounded-xl bg-foreground-intense text-white before:bg-transparent shadow-xs shrink-0"
-                >
-                  05
-                </Badge>
-                <div>
-                  <span className="font-display font-bold text-base sm:text-lg text-foreground-intense block">
-                    Une commission est reversée au dirigeant
-                  </span>
-                  <span className="text-xs sm:text-sm text-foreground-muted font-medium mt-0.5 block">
-                    Un revenu passif direct viré sur le compte de votre société (virement le 05 du mois).
-                  </span>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3 self-end md:self-auto shrink-0 mt-4 md:mt-0">
-                <SectionEyebrow tone="sm" className="px-4 py-2 rounded-xl shadow-xs">
-                  Revenu Passif
-                </SectionEyebrow>
+            <div className="group bg-gradient-to-r from-primary-subtle/70 via-white to-primary-subtle/40 p-4 sm:p-5 rounded-2xl border-2 border-primary-base flex items-center gap-4 sm:gap-6">
+              <Badge
+                variant="soft"
+                className="font-mono font-black text-xs px-3 py-1.5 rounded-xl bg-foreground-intense text-white before:bg-transparent shadow-xs shrink-0"
+              >
+                05
+              </Badge>
+              <div className="flex-1 min-w-0">
+                <span className="font-display font-bold text-sm sm:text-base text-foreground-intense block">
+                  Une commission est reversée au dirigeant
+                </span>
+                <span className="text-xs text-foreground-muted font-medium block">
+                  Revenu passif viré sur le compte de votre société (le 05 du mois).
+                </span>
               </div>
             </div>
           </div>

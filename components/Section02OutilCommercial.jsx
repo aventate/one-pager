@@ -1,5 +1,5 @@
-import { Alert, AlertIcon, AlertDescription, Button, Card, CardTitle, CardDescription } from '@appica/ui-react';
-import { ShoppingBag, List, ShoppingCart, Store, ExternalLink, Sparkles, ShieldCheck, Smartphone, Send, Bell, PackageCheck } from 'lucide-react';
+import { Button, Card, CardTitle, CardDescription } from '@appica/ui-react';
+import { ShoppingBag, List, ShoppingCart, Store, ExternalLink, Sparkles } from 'lucide-react';
 import SectionEyebrow from './SectionEyebrow';
 
 export default function Section02OutilCommercial() {
@@ -26,14 +26,6 @@ export default function Section02OutilCommercial() {
       title: "Retrait express magasin",
       desc: "La commande est préparée d'avance, le client passe simplement la récupérer.",
     },
-  ];
-
-  const reservationSteps = [
-    { num: "1", icon: Smartphone, title: "Vitrine mobile", desc: "Vous mettez en avant 20 à 30 produits phares à forte marge." },
-    { num: "2", icon: Send, title: "Réservation client", desc: "Le client réserve depuis son téléphone : nom et numéro, sans paiement en ligne." },
-    { num: "3", icon: Bell, title: "Alerte comptoir", desc: "Vous recevez la commande en temps réel sur votre tableau de bord." },
-    { num: "4", icon: PackageCheck, title: "Préparation", desc: "Vous préparez la pochette au nom du client pendant les heures creuses." },
-    { num: "5", icon: Store, title: "Retrait & caisse", desc: "Le client retire et vous encaissez sur votre caisse habituelle en 15 secondes." },
   ];
 
   const guarantees = [
@@ -100,98 +92,47 @@ export default function Section02OutilCommercial() {
           })}
         </div>
 
-        {/* Comment fonctionne la réservation express au comptoir : lève
-            l'objection la plus fréquente des buralistes (peur de devoir
-            connecter leur logiciel de caisse). */}
+        {/* 3. CARTE DE CONVERSION DIRECTE : bien plus marquée que le reste de la
+            section pour ne pas se confondre avec la grille au-dessus (fond
+            sombre dégradé + halo + bordure primaire, contraste fort). */}
         <Card
-          className="[--card-radius:1.75rem] shadow-sm mb-20"
-          contentProps={{ className: 'p-8 sm:p-12 lg:p-14' }}
-        >
-          <div className="text-center mb-10 max-w-4xl mx-auto">
-            <div className="mb-3">
-              <SectionEyebrow tone="sm">RÉSERVATION EXPRESS AU COMPTOIR</SectionEyebrow>
-            </div>
-            <h3 className="font-display text-2xl sm:text-3xl lg:text-4xl font-black text-foreground-intense tracking-tight">
-              Comment ça fonctionne, concrètement ?
-            </h3>
-          </div>
-
-          <Alert
-            variant="info"
-            layout="inline"
-            className="rounded-2xl bg-primary-subtle/50 border border-primary-soft text-sm text-foreground-strong mb-10 max-w-4xl mx-auto"
-          >
-            <AlertIcon>
-              <ShieldCheck className="w-5 h-5 text-primary-base shrink-0" />
-            </AlertIcon>
-            <AlertDescription className="text-foreground-strong">
-              <strong className="text-foreground-intense font-bold">Aucune connexion à votre logiciel de caisse</strong> (Strator, Bimedia, Devlyx). Le système fonctionne de façon 100 % autonome : zéro coût de licence, zéro risque de panne caisse.
-            </AlertDescription>
-          </Alert>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-            {reservationSteps.map((step) => {
-              const Icon = step.icon;
-              return (
-                <div key={step.num} className="text-center">
-                  <div className="relative w-14 h-14 rounded-2xl bg-primary-subtle border border-primary-soft text-primary-base flex items-center justify-center mx-auto mb-4 shadow-xs">
-                    <Icon className="w-6 h-6" />
-                    <span className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-foreground-intense text-white text-[11px] font-black flex items-center justify-center">
-                      {step.num}
-                    </span>
-                  </div>
-                  <h4 className="font-display font-bold text-sm text-foreground-intense mb-1.5">
-                    {step.title}
-                  </h4>
-                  <p className="text-xs text-foreground-muted leading-relaxed">
-                    {step.desc}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-
-          <p className="text-xs sm:text-sm text-foreground-muted text-center mt-10 max-w-3xl mx-auto leading-relaxed">
-            Le client réserve en ligne sans paiement à distance ; vous préparez sa commande pendant les heures creuses et encaissez directement sur votre caisse habituelle au retrait, comme pour un achat standard en boutique.
-          </p>
-        </Card>
-
-        {/* 3. CARTE DE CONVERSION DIRECTE (SANS APERÇU, LIEN DIRECT EN DIRECT) FOND BLANC LUXE */}
-        <Card
-          className="[--card-radius:2.25rem] shadow-xl"
+          className="[--card-radius:2.25rem] shadow-2xl border-2 border-primary-base/30 relative overflow-hidden"
           contentProps={{
             className:
-              'relative overflow-hidden p-10 sm:p-16 lg:p-20 text-center text-foreground-intense hover:border-primary-base/40 transition-colors',
+              'relative overflow-hidden p-10 sm:p-16 lg:p-20 text-center text-white hover:border-primary-base/40 transition-colors bg-[radial-gradient(ellipse_at_top,_#2a1014_0%,_#160a0c_65%)]',
           }}
         >
+          {/* Halo décoratif */}
+          <div className="pointer-events-none absolute -top-32 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-primary-base/25 blur-[120px]" aria-hidden="true" />
+
           <div className="relative z-10 max-w-5xl mx-auto space-y-8">
 
             <SectionEyebrow tone="lg" icon={Sparkles}>
               DÉMONSTRATION RÉELLE EN LIGNE
             </SectionEyebrow>
 
-            <h4 className="font-display text-4xl sm:text-5xl lg:text-6xl font-black text-foreground-intense tracking-tight leading-tight">
+            <h4 className="font-display text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight">
               Tabac Presse Paris 11 <br />
               <span className="text-gradient-aventate">La vitrine digitale en action</span>
             </h4>
 
-            <p className="text-lg sm:text-xl text-foreground-muted leading-relaxed max-w-6xl mx-auto font-normal">
+            <p className="text-lg sm:text-xl text-white/70 leading-relaxed max-w-6xl mx-auto font-normal">
               Découvrez concrètement l'exemple conçu pour un commerce de quartier (42 rue de la Roquette, Paris 11e). Explorez la fluidité de navigation, la présentation claire des services et la passerelle d'opportunités commerciales.
             </p>
 
-            {/* 3 garanties en pillules fond clair */}
+            {/* 3 garanties en pillules fond sombre */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 text-left">
               {guarantees.map((g) => (
                 <div
                   key={g.num}
-                  className="p-5 rounded-2xl bg-surface-subtle border border-border-subtle flex items-center gap-3.5 shadow-sm"
+                  className="p-5 rounded-2xl bg-white/5 border border-white/15 flex items-center gap-3.5 backdrop-blur-sm"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-primary-subtle text-primary-base flex items-center justify-center shrink-0 font-black">
+                  <div className="w-10 h-10 rounded-xl bg-primary-base/20 text-primary-base flex items-center justify-center shrink-0 font-black">
                     {g.num}
                   </div>
                   <div>
-                    <span className="text-sm font-bold text-foreground-intense block">{g.title}</span>
-                    <span className="text-xs text-foreground-muted">{g.desc}</span>
+                    <span className="text-sm font-bold text-white block">{g.title}</span>
+                    <span className="text-xs text-white/60">{g.desc}</span>
                   </div>
                 </div>
               ))}
