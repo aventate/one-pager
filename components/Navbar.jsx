@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { Button, Navigation, NavigationList, NavigationItem, Separator } from '@appica/ui-react';
 import { Phone, Calculator, Monitor, ChevronRight, ShieldCheck, LayoutDashboard } from 'lucide-react';
 
 export default function Navbar({ onOpenContact }) {
@@ -37,7 +38,7 @@ export default function Navbar({ onOpenContact }) {
       >
         <div className="w-full max-w-[1780px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between gap-4">
-            
+
             {/* Alliance des deux logos officiels pour fond clair */}
             <div className="flex items-center gap-3 sm:gap-4 shrink-0">
               {/* Logo officiel Services Indep */}
@@ -49,12 +50,12 @@ export default function Navbar({ onOpenContact }) {
                 />
               </div>
 
-              <div className="h-8 w-px bg-slate-200 hidden sm:block shrink-0" />
+              <Separator orientation="vertical" className="h-8 hidden sm:block shrink-0" />
 
               {/* Logo officiel Aventate rouge avec mention partenaire */}
               <div className="flex items-center gap-2">
                 <div className="hidden sm:flex flex-col text-left">
-                  <span className="text-[9px] font-black uppercase tracking-wider text-slate-400 leading-none">
+                  <span className="text-[9px] font-black uppercase tracking-wider text-foreground-subtle leading-none">
                     Opéré par
                   </span>
                   <img
@@ -72,50 +73,68 @@ export default function Navbar({ onOpenContact }) {
             </div>
 
             {/* Navigation 4 piliers */}
-            <nav className="hidden lg:flex items-center gap-1 xl:gap-2 text-xs sm:text-sm font-bold text-slate-700">
-              <button
-                onClick={() => scrollTo('section-02')}
-                className="px-3 py-2 rounded-xl hover:text-slate-900 hover:bg-slate-100 transition-colors flex items-center gap-2 whitespace-nowrap"
-              >
-                <Monitor className="w-4 h-4 text-[#c6283c]" />
-                <span>Démo du Site</span>
-              </button>
+            <Navigation className="hidden lg:block" aria-label="Navigation principale">
+              <NavigationList className="items-center gap-1 xl:gap-2">
+                <NavigationItem>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => scrollTo('section-02')}
+                    className="font-bold whitespace-nowrap"
+                  >
+                    <Monitor className="w-4 h-4 text-primary-base" />
+                    <span>Démo du Site</span>
+                  </Button>
+                </NavigationItem>
 
-              <Link
-                href="/espace-buraliste"
-                className="px-3 py-2 rounded-xl bg-[#f9e9eb] border border-[#f4d4d8] text-[#c6283c] hover:bg-[#f4d4d8]/70 transition-all flex items-center gap-2 whitespace-nowrap font-black"
-              >
-                <LayoutDashboard className="w-4 h-4 text-[#c6283c]" />
-                <span>Espace Buraliste</span>
-              </Link>
+                <NavigationItem>
+                  <Button
+                    variant="soft"
+                    size="sm"
+                    className="font-black whitespace-nowrap rounded-xl text-primary-base hover:text-primary-strong before:bg-primary-subtle before:border-primary-soft hover:before:bg-primary-soft/70 hover:before:border-primary-soft"
+                    render={<Link href="/espace-buraliste" />}
+                  >
+                    <LayoutDashboard className="w-4 h-4" />
+                    <span>Espace Buraliste</span>
+                  </Button>
+                </NavigationItem>
 
-              <button
-                onClick={() => scrollTo('section-roi')}
-                className="px-3 py-2 rounded-xl hover:text-slate-900 hover:bg-slate-100 transition-colors flex items-center gap-2 whitespace-nowrap"
-              >
-                <Calculator className="w-4 h-4 text-[#c6283c]" />
-                <span>Simulateur de Gains</span>
-              </button>
+                <NavigationItem>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => scrollTo('section-roi')}
+                    className="font-bold whitespace-nowrap"
+                  >
+                    <Calculator className="w-4 h-4 text-primary-base" />
+                    <span>Simulateur de Gains</span>
+                  </Button>
+                </NavigationItem>
 
-              <button
-                onClick={() => scrollTo('section-04')}
-                className="px-3 py-2 rounded-xl hover:text-slate-900 hover:bg-slate-100 transition-colors flex items-center gap-2 whitespace-nowrap"
-              >
-                <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                <span>Offres &amp; Tarifs</span>
-              </button>
-            </nav>
+                <NavigationItem>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => scrollTo('section-04')}
+                    className="font-bold whitespace-nowrap"
+                  >
+                    <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                    <span>Offres &amp; Tarifs</span>
+                  </Button>
+                </NavigationItem>
+              </NavigationList>
+            </Navigation>
 
             {/* Boutons d'action */}
             <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
-              <button
+              <Button
                 onClick={onOpenContact}
-                className="gold-glow-button inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 text-xs sm:text-sm font-black text-white rounded-xl shadow-md transition-all whitespace-nowrap"
+                className="aventate-glow-button font-black whitespace-nowrap"
               >
                 <Phone className="w-4 h-4" />
                 <span>Être rappelé par Thomas M.</span>
                 <ChevronRight className="w-4 h-4 opacity-80" />
-              </button>
+              </Button>
             </div>
 
           </div>
