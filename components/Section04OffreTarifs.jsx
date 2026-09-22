@@ -1,5 +1,5 @@
 import { Badge, BorderBeam, Button, Card, CardTitle } from '@appica/ui-react';
-import { Check, Plus, Star, Sparkles, ArrowRight } from 'lucide-react';
+import { Check, Plus, Star, Sparkles, ArrowRight, Store, TrendingUp, Rocket } from 'lucide-react';
 import SectionEyebrow from './SectionEyebrow';
 
 /**
@@ -11,6 +11,8 @@ import SectionEyebrow from './SectionEyebrow';
 const TIERS = [
   {
     id: 'essentiel',
+    icon: Store,
+    accent: 'from-slate-400 to-slate-600',
     title: 'ESSENTIEL',
     subtitle: "Le socle digital moderne pour être vu et trouvé dans votre quartier.",
     creationPrice: '5 000 €',
@@ -34,6 +36,8 @@ const TIERS = [
   },
   {
     id: 'commercant',
+    icon: TrendingUp,
+    accent: 'from-primary-base to-primary-strong',
     title: 'COMMERÇANT',
     subtitle: "Le site qui devient un véritable outil de gestion et de gain de temps au comptoir.",
     creationPrice: '7 000 €',
@@ -56,6 +60,8 @@ const TIERS = [
   },
   {
     id: 'performance',
+    icon: Rocket,
+    accent: 'from-amber-500 to-amber-700',
     title: 'PERFORMANCE',
     subtitle: "La solution complète pour filtrer les appels parasites et fidéliser votre flux client.",
     creationPrice: '9 500 €',
@@ -93,22 +99,31 @@ export default function Section04OffreTarifs({ onOpenContact }) {
           </p>
         </div>
 
-        {/* Grille comparative des 3 offres */}
+        {/* Grille comparative des 3 offres : l'offre conseillée est
+            légèrement surélevée (pattern classique des grilles tarifaires)
+            et chaque formule porte une couleur d'accent + icône propres
+            pour ne pas se ressembler visuellement. */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
           {TIERS.map((tier) => {
+            const Icon = tier.icon;
             const card = (
               <Card
-                className={`[--card-radius:1.5rem] transition-all h-full ${
+                className={`[--card-radius:1.5rem] group transition-all duration-300 h-full overflow-hidden hover:-translate-y-1.5 ${
                   tier.highlighted
-                    ? 'shadow-lg ring-1 ring-primary-soft'
-                    : 'shadow-xs'
+                    ? 'shadow-xl ring-1 ring-primary-soft'
+                    : 'shadow-xs hover:shadow-lg'
                 }`}
                 contentProps={{
-                  className: `p-6 sm:p-8 flex flex-col h-full ${
+                  className: `flex flex-col h-full ${
                     tier.highlighted ? 'border-2 border-primary-base' : ''
                   }`,
                 }}
               >
+              {/* Bandeau d'accent coloré propre à chaque formule */}
+              <div className={`h-2 w-full bg-gradient-to-r ${tier.accent} shrink-0`} aria-hidden="true" />
+
+              <div className="p-6 sm:p-8 flex flex-col h-full">
+
               {/* Badge de mise en avant discrète, tier « Commerçant » uniquement */}
               {tier.badge && (
                 <Badge
@@ -121,6 +136,10 @@ export default function Section04OffreTarifs({ onOpenContact }) {
               )}
               {!tier.badge && <div className="mb-4 h-[26px]" aria-hidden="true" />}
 
+              <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${tier.accent} text-white flex items-center justify-center shrink-0 shadow-md mb-4 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3`}>
+                <Icon className="w-6 h-6" />
+              </div>
+
               <CardTitle className="font-display font-black text-2xl text-foreground-intense tracking-tight">
                 {tier.title}
               </CardTitle>
@@ -128,8 +147,8 @@ export default function Section04OffreTarifs({ onOpenContact }) {
                 {tier.subtitle}
               </p>
 
-              {/* Tarification */}
-              <div className="mt-5 pt-5 border-t border-border-subtle">
+              {/* Tarification, mise en valeur dans un encart dédié */}
+              <div className={`mt-5 p-4 rounded-2xl ${tier.highlighted ? 'bg-primary-subtle/60 border border-primary-soft' : 'bg-surface-subtle border border-border-subtle'}`}>
                 <div className="flex items-baseline gap-2">
                   <span className="text-xs text-foreground-subtle font-bold uppercase tracking-wider">Création</span>
                   <span className="font-display text-2xl font-black text-foreground-intense">{tier.creationPrice}</span>
@@ -162,13 +181,13 @@ export default function Section04OffreTarifs({ onOpenContact }) {
                 <Button
                   size="lg"
                   onClick={onOpenContact}
-                  className={`w-full h-auto py-3.5 font-black text-sm rounded-xl gap-2 ${
+                  className={`w-full h-auto py-3.5 font-black text-sm rounded-xl gap-2 transition-transform group-hover:scale-[1.02] ${
                     tier.highlighted ? 'aventate-glow-button shadow-md' : ''
                   }`}
                   variant={tier.highlighted ? undefined : 'outline'}
                 >
                   <span>{tier.ctaLabel}</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                 </Button>
 
                 {tier.options ? (
@@ -195,14 +214,16 @@ export default function Section04OffreTarifs({ onOpenContact }) {
                   </div>
                 )}
               </div>
+              </div>
               </Card>
             );
 
-            // Filet lumineux discret autour de la seule offre mise en avant.
+            // Filet lumineux discret + légère surélévation autour de la
+            // seule offre mise en avant, pour guider l'œil sans surcharger.
             return tier.highlighted ? (
               <BorderBeam
                 key={tier.id}
-                className="rounded-2xl"
+                className="rounded-2xl h-full md:-mt-4"
                 color="var(--primary-soft)"
                 length={22}
                 thickness={1.5}
@@ -211,7 +232,7 @@ export default function Section04OffreTarifs({ onOpenContact }) {
                 {card}
               </BorderBeam>
             ) : (
-              <div key={tier.id}>{card}</div>
+              <div key={tier.id} className="h-full">{card}</div>
             );
           })}
         </div>

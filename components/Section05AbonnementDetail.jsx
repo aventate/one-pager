@@ -75,48 +75,56 @@ export default function Section05AbonnementDetail() {
             </Badge>
           </div>
 
-          {/* Grille Inclus vs Sur Étude */}
+          {/* Grille Inclus vs Sur Étude : chaque ligne dans sa propre pastille
+              plutôt qu'une simple liste à puces, pour mieux respirer et se
+              scanner d'un coup d'œil. */}
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-8">
 
             {/* Colonne Inclus (7 cols) */}
-            <div className="md:col-span-7 space-y-3.5">
+            <div className="md:col-span-7">
               <Badge
                 variant="success"
-                className="gap-2 text-xs font-black tracking-wider text-emerald-800 uppercase bg-emerald-50 px-3.5 py-1.5 rounded-lg border border-emerald-200 mb-1"
+                className="gap-2 text-xs font-black tracking-wider text-emerald-800 uppercase bg-emerald-50 px-3.5 py-1.5 rounded-lg border border-emerald-200 mb-4"
               >
                 <Check className="w-4 h-4 text-emerald-600" />
                 <span>Pris en charge au quotidien</span>
               </Badge>
 
-              <ul className="space-y-2.5 text-sm sm:text-base text-foreground-strong">
+              <ul className="space-y-2.5">
                 {inclusions.map((item, idx) => (
-                  <li key={idx} className="flex items-start gap-3">
-                    <div className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5">
+                  <li
+                    key={idx}
+                    className="flex items-start gap-3 p-3.5 rounded-xl bg-emerald-50/40 border border-emerald-100"
+                  >
+                    <div className="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
                       <Check className="w-3.5 h-3.5" />
                     </div>
-                    <span className="leading-snug">{item}</span>
+                    <span className="text-sm sm:text-base text-foreground-strong leading-snug pt-0.5">{item}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
             {/* Colonne Sur étude (5 cols) */}
-            <div className="md:col-span-5 space-y-3.5 md:border-l md:border-border-subtle md:pl-8">
+            <div className="md:col-span-5 md:border-l md:border-border-subtle md:pl-8">
               <Badge
                 variant="outline"
-                className="gap-2 text-xs font-black tracking-wider text-foreground-strong uppercase bg-surface-muted px-3.5 py-1.5 rounded-lg border border-border-subtle mb-1"
+                className="gap-2 text-xs font-black tracking-wider text-foreground-strong uppercase bg-surface-muted px-3.5 py-1.5 rounded-lg border border-border-subtle mb-4"
               >
                 <X className="w-4 h-4 text-foreground-muted" />
                 <span>Hors forfait (sur devis)</span>
               </Badge>
 
-              <ul className="space-y-2.5 text-sm sm:text-base text-foreground-muted">
+              <ul className="space-y-2.5">
                 {exclusions.map((item, idx) => (
-                  <li key={idx} className="flex items-start gap-3">
-                    <div className="w-5 h-5 rounded-full bg-surface-muted text-foreground-muted flex items-center justify-center shrink-0 mt-0.5">
+                  <li
+                    key={idx}
+                    className="flex items-start gap-3 p-3.5 rounded-xl bg-surface-subtle border border-border-subtle"
+                  >
+                    <div className="w-6 h-6 rounded-full bg-surface-muted text-foreground-muted flex items-center justify-center shrink-0">
                       <X className="w-3.5 h-3.5" />
                     </div>
-                    <span className="leading-snug">{item}</span>
+                    <span className="text-sm sm:text-base text-foreground-muted leading-snug pt-0.5">{item}</span>
                   </li>
                 ))}
               </ul>

@@ -92,47 +92,43 @@ export default function Section02OutilCommercial() {
           })}
         </div>
 
-        {/* 3. CARTE DE CONVERSION DIRECTE : bien plus marquée que le reste de la
-            section pour ne pas se confondre avec la grille au-dessus (fond
-            sombre dégradé + halo + bordure primaire, contraste fort). */}
+        {/* 3. CARTE DE CONVERSION DIRECTE : se distingue par une bordure et un
+            fond doux plutôt qu'un contraste sombre agressif. */}
         <Card
-          className="[--card-radius:2.25rem] shadow-2xl border-2 border-primary-base/30 relative overflow-hidden"
+          className="[--card-radius:2.25rem] shadow-xl border-2 border-primary-base/25 relative overflow-hidden"
           contentProps={{
             className:
-              'relative overflow-hidden p-10 sm:p-16 lg:p-20 text-center text-white hover:border-primary-base/40 transition-colors bg-[radial-gradient(ellipse_at_top,_#2a1014_0%,_#160a0c_65%)]',
+              'relative overflow-hidden p-10 sm:p-16 lg:p-20 text-center text-foreground-intense hover:border-primary-base/40 transition-colors bg-[radial-gradient(ellipse_at_top,_var(--primary-subtle)_0%,_#ffffff_65%)]',
           }}
         >
-          {/* Halo décoratif */}
-          <div className="pointer-events-none absolute -top-32 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-primary-base/25 blur-[120px]" aria-hidden="true" />
-
           <div className="relative z-10 max-w-5xl mx-auto space-y-8">
 
             <SectionEyebrow tone="lg" icon={Sparkles}>
               DÉMONSTRATION RÉELLE EN LIGNE
             </SectionEyebrow>
 
-            <h4 className="font-display text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight">
+            <h4 className="font-display text-4xl sm:text-5xl lg:text-6xl font-black text-foreground-intense tracking-tight leading-tight">
               Tabac Presse Paris 11 <br />
               <span className="text-gradient-aventate">La vitrine digitale en action</span>
             </h4>
 
-            <p className="text-lg sm:text-xl text-white/70 leading-relaxed max-w-6xl mx-auto font-normal">
+            <p className="text-lg sm:text-xl text-foreground-muted leading-relaxed max-w-6xl mx-auto font-normal">
               Découvrez concrètement l'exemple conçu pour un commerce de quartier (42 rue de la Roquette, Paris 11e). Explorez la fluidité de navigation, la présentation claire des services et la passerelle d'opportunités commerciales.
             </p>
 
-            {/* 3 garanties en pillules fond sombre */}
+            {/* 3 garanties en pillules fond clair */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 text-left">
               {guarantees.map((g) => (
                 <div
                   key={g.num}
-                  className="p-5 rounded-2xl bg-white/5 border border-white/15 flex items-center gap-3.5 backdrop-blur-sm"
+                  className="p-5 rounded-2xl bg-white border border-primary-soft/60 flex items-center gap-3.5 shadow-sm"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-primary-base/20 text-primary-base flex items-center justify-center shrink-0 font-black">
+                  <div className="w-10 h-10 rounded-xl bg-primary-subtle text-primary-base flex items-center justify-center shrink-0 font-black">
                     {g.num}
                   </div>
                   <div>
-                    <span className="text-sm font-bold text-white block">{g.title}</span>
-                    <span className="text-xs text-white/60">{g.desc}</span>
+                    <span className="text-sm font-bold text-foreground-intense block">{g.title}</span>
+                    <span className="text-xs text-foreground-muted">{g.desc}</span>
                   </div>
                 </div>
               ))}

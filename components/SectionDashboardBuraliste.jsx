@@ -35,6 +35,9 @@ import {
   TabsTrigger,
   Toggle,
   ToggleGroup,
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
 } from "@appica/ui-react";
 import {
   LayoutDashboard,
@@ -50,9 +53,9 @@ import {
   Check,
   Plus,
   Eye,
-  QrCode,
   Scan,
   CalendarRange,
+  Info,
 } from "lucide-react";
 import SectionEyebrow from "./SectionEyebrow";
 
@@ -992,9 +995,30 @@ export default function SectionDashboardBuraliste({ onOpenContact }) {
                       <span className="text-xs font-black uppercase tracking-wider text-emerald-700 block mb-1">
                         VENTES COMPTOIR FLUIDIFIÉES
                       </span>
-                      <h3 className="font-display font-black text-2xl sm:text-3xl text-foreground-intense">
-                        Gestion des retraits Click &amp; Collect
-                      </h3>
+                      <div className="flex items-center gap-2">
+                        <h3 className="font-display font-black text-2xl sm:text-3xl text-foreground-intense">
+                          Gestion des retraits Click &amp; Collect
+                        </h3>
+                        {/* Détail (aucune connexion caisse, remise par QR code)
+                            déplacé dans une infobulle plutôt que 2 bandeaux
+                            fixes qui alourdissaient l'onglet. */}
+                        <Tooltip>
+                          <TooltipTrigger
+                            className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-surface-muted text-foreground-subtle hover:bg-primary-subtle hover:text-primary-base transition-colors shrink-0"
+                            aria-label="Comment fonctionne la remise en caisse"
+                          >
+                            <Info className="w-3.5 h-3.5" />
+                          </TooltipTrigger>
+                          <TooltipContent className="max-w-xs text-xs leading-relaxed p-3.5 space-y-2">
+                            <p>
+                              <strong className="text-foreground-intense">Aucune connexion à votre logiciel de caisse</strong> (Strator, Bimedia, Devlyx) : la commande est préparée à part, puis encaissée normalement sur votre caisse habituelle au moment du retrait.
+                            </p>
+                            <p>
+                              <strong className="text-foreground-intense">Zéro manipulation sur écran :</strong> le client présente son QR code, vous le bipez avec votre douchette (ou tapez le code à 4 chiffres). Clôturé en 1 seconde.
+                            </p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </div>
                       <p className="text-sm text-foreground-muted mt-1 font-medium">
                         Vos clients réservent sur votre site pour sécuriser leur stock. Remise express en boutique.
                       </p>
@@ -1011,34 +1035,6 @@ export default function SectionDashboardBuraliste({ onOpenContact }) {
                       </Button>
                     </div>
                   </div>
-
-                  {/* Rappel du principe : aucune connexion au logiciel de caisse */}
-                  <Alert
-                    variant="info"
-                    layout="inline"
-                    className="rounded-2xl bg-primary-subtle/50 border border-primary-soft text-xs sm:text-sm text-foreground-strong"
-                  >
-                    <AlertIcon>
-                      <ShieldCheck className="w-5 h-5 text-primary-base shrink-0" />
-                    </AlertIcon>
-                    <AlertDescription className="text-foreground-strong">
-                      <strong className="text-foreground-intense">Aucune connexion à votre logiciel de caisse</strong> (Strator, Bimedia, Devlyx) : la commande est préparée à part, puis encaissée normalement sur votre caisse habituelle au moment du retrait.
-                    </AlertDescription>
-                  </Alert>
-
-                  {/* Bannière ergonomie comptoir */}
-                  <Alert
-                    variant="success"
-                    layout="inline"
-                    className="rounded-2xl bg-emerald-50/80 border border-emerald-200 text-xs sm:text-sm text-emerald-900"
-                  >
-                    <AlertIcon>
-                      <QrCode className="w-5 h-5 text-emerald-700 shrink-0" />
-                    </AlertIcon>
-                    <AlertDescription className="text-emerald-900">
-                      <strong>Zéro manipulation sur écran en caisse :</strong> le client vous présente son QR code smartphone, vous le bipez avec votre douchette caisse habituelle (ou vous tapez le code à 4 chiffres). La commande est clôturée en 1 seconde !
-                    </AlertDescription>
-                  </Alert>
 
                   {/* Liste des commandes complètes */}
                   <div className="space-y-4">

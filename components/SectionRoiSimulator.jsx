@@ -57,14 +57,17 @@ export default function SectionRoiSimulator({ onOpenContact }) {
                 thumbAriaLabel="Commandes Click & Collect par semaine"
                 className="w-full"
               />
+              <span className="text-xs text-foreground-subtle font-medium block">
+                Basé sur un panier moyen de {avgBasket} €
+              </span>
             </div>
 
-            {/* CURSEUR 2 : ASSURANCE & ALARME */}
+            {/* CURSEUR 2 : ASSURANCE */}
             <div className="space-y-3">
               <div className="flex items-center justify-between gap-3">
                 <span className="inline-flex items-center gap-2 font-bold text-sm text-foreground-intense">
                   <Shield className="w-4 h-4 text-indigo-700 shrink-0" />
-                  Dossiers Assurance &amp; Alarme
+                  Dossiers Assurance
                 </span>
                 <span className="font-display font-black text-2xl text-foreground-intense">
                   {monthlyReferrals}<span className="text-xs text-foreground-muted font-bold">/mois</span>
@@ -76,9 +79,12 @@ export default function SectionRoiSimulator({ onOpenContact }) {
                 step={1}
                 value={monthlyReferrals}
                 onValueChange={(v) => setMonthlyReferrals(readSliderValue(v))}
-                thumbAriaLabel="Dossiers Assurance & Alarme par mois"
+                thumbAriaLabel="Dossiers Assurance par mois"
                 className="w-full"
               />
+              <span className="text-xs text-foreground-subtle font-medium block">
+                Basé sur une commission de {commissionPerLead} € / contrat
+              </span>
             </div>
           </div>
 
