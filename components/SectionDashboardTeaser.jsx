@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Badge, Button, Card, CardTitle } from '@appica/ui-react';
+import { Button, Card, CardTitle } from '@appica/ui-react';
 import { LayoutDashboard, ArrowRight, ShieldCheck, ShoppingBag, Sparkles } from 'lucide-react';
 import SectionEyebrow from './SectionEyebrow';
 
@@ -13,30 +13,26 @@ export default function SectionDashboardTeaser() {
   return (
     <section id="section-dashboard-teaser" className="pt-8">
 
-      {/* En-Tête Centré Concis Fond Lumineux */}
-      <div className="bg-transparent text-foreground-intense py-16 sm:py-20 border-b border-border-subtle text-center">
-        <div className="w-full max-w-[1780px] mx-auto px-4 sm:px-6 lg:px-8">
-
-          <div className="mb-6">
-            <SectionEyebrow icon={LayoutDashboard}>
-              ESPACE BURALISTE · SUIVI SIMPLIFIÉ
-            </SectionEyebrow>
-          </div>
-
-          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight text-foreground-intense mb-6">
-            Pilotez votre commerce et vos commissions <span className="text-gradient-gold">en 30 secondes par jour.</span>
-          </h2>
-
-          <p className="text-lg sm:text-xl text-foreground-strong max-w-6xl mx-auto leading-relaxed font-normal">
-            En complément de votre site vitrine, vous disposez d'un espace privé ultra-épuré pour suivre vos gains sans aucune charge mentale.
-          </p>
-
-        </div>
-      </div>
-
-      {/* Carte Teaser de Prestige Pleine Largeur Fond Blanc */}
+      {/* Section fusionnée : un seul en-tête (au lieu de deux titres qui se
+          répétaient l'un l'autre) au-dessus de la carte teaser. */}
       <div className="bg-transparent py-16 sm:py-20 border-b border-border-subtle">
         <div className="w-full max-w-[1780px] mx-auto px-4 sm:px-6 lg:px-8">
+
+          <div className="mb-10 sm:mb-14 text-center max-w-4xl mx-auto">
+            <div className="mb-6">
+              <SectionEyebrow icon={LayoutDashboard}>
+                ESPACE BURALISTE · SUIVI SIMPLIFIÉ
+              </SectionEyebrow>
+            </div>
+
+            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight text-foreground-intense mb-6">
+              Un tableau de bord épuré, <span className="text-gradient-gold">compris en 1 coup d'œil.</span>
+            </h2>
+
+            <p className="text-lg sm:text-xl text-foreground-strong leading-relaxed font-normal">
+              Zéro formation, zéro complication technique : pilotez vos commissions, vos commandes et vos tendances de quartier en 30 secondes par jour.
+            </p>
+          </div>
 
           <Card
             className="[--card-radius:2rem] shadow-xl"
@@ -47,24 +43,8 @@ export default function SectionDashboardTeaser() {
           >
             <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
 
-              {/* Gauche : Argumentaire & 3 Piliers */}
+              {/* Gauche : 3 Piliers */}
               <div className="lg:col-span-7 space-y-6">
-
-                <Badge
-                  variant="success"
-                  className="gap-2 px-3.5 py-1.5 bg-emerald-50 border border-emerald-300 text-emerald-800 text-xs font-black uppercase tracking-wider"
-                >
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                  <span>DÉMO INTERACTIVE DISPONIBLE</span>
-                </Badge>
-
-                <h3 className="font-display text-3xl sm:text-4xl lg:text-5xl font-black text-foreground-intense tracking-tight leading-tight">
-                  Un tableau de bord épuré, <span className="text-gradient-gold">compris en 1 coup d'œil.</span>
-                </h3>
-
-                <p className="text-base sm:text-lg text-foreground-strong leading-relaxed font-normal">
-                  Zéro formation, zéro complication technique. Vous visualisez vos commissions partenaires créditées, vos commandes Click &amp; Collect prêtes et les tendances d'achats de votre quartier.
-                </p>
 
                 {/* 3 piliers compacts fond clair */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">

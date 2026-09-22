@@ -1,5 +1,5 @@
-import { Badge, Card, CardTitle, CardDescription, Separator } from '@appica/ui-react';
-import { Shield, ShieldCheck, Building2, Landmark, HeartPulse, Umbrella, Scale, Briefcase, HeartHandshake, Users, LayoutGrid, CheckCircle2 } from 'lucide-react';
+import { Card, CardTitle, CardDescription, Separator, Badge } from '@appica/ui-react';
+import { Shield, ShieldCheck, Building2, Landmark, HeartPulse, Umbrella, Scale, Briefcase, HeartHandshake, Users, LayoutGrid, CheckCircle2, MessageCircle, Send, ClipboardCheck, FileCheck2, Wallet } from 'lucide-react';
 import SectionEyebrow from './SectionEyebrow';
 
 export default function Section03Opportunites() {
@@ -38,27 +38,34 @@ export default function Section03Opportunites() {
   const steps = [
     {
       num: "01",
-      text: "Un client de votre commerce se montre intéressé",
-      detail: "Au comptoir lors d'un échange ou via le formulaire connecté de votre site vitrine.",
-      tag: "Détection locale",
+      icon: MessageCircle,
+      text: "Un client se montre intéressé",
+      detail: "Au comptoir ou via le formulaire de votre site vitrine.",
     },
     {
       num: "02",
-      text: "Vous transmettez la demande à Services Indep",
-      detail: "En 3 clics sur votre Espace Buraliste ou par simple message à notre équipe.",
-      tag: "Transmission 30 sec",
+      icon: Send,
+      text: "Vous transmettez la demande",
+      detail: "En 3 clics sur votre Espace Buraliste ou par message à notre équipe.",
     },
     {
       num: "03",
-      text: "Services Indep prend en charge et suit 100% du dossier",
-      detail: "Prise de rendez-vous, conseil sur-mesure et formalités administratives intégrales.",
-      tag: "Zéro paperasse",
+      icon: ClipboardCheck,
+      text: "Services Indep suit 100% du dossier",
+      detail: "Rendez-vous, conseil sur-mesure et formalités administratives.",
     },
     {
       num: "04",
-      text: "Le contrat est validé selon les conditions prévues",
-      detail: "Le client signe son contrat sans que vous n'ayez jamais eu à relancer.",
-      tag: "Dossier conclu",
+      icon: FileCheck2,
+      text: "Le contrat est validé",
+      detail: "Le client signe sans que vous n'ayez jamais eu à relancer.",
+    },
+    {
+      num: "05",
+      icon: Wallet,
+      text: "Une commission est reversée",
+      detail: "Revenu passif viré sur le compte de votre société, le 05 du mois.",
+      highlighted: true,
     },
   ];
 
@@ -124,9 +131,9 @@ export default function Section03Opportunites() {
                 return (
                   <div
                     key={item.title}
-                    className="p-4 rounded-2xl bg-primary-subtle/30 border border-primary-soft/70 hover:border-primary-base/40 hover:bg-primary-subtle/50 transition-all"
+                    className="p-4 rounded-2xl bg-surface-subtle border border-border-subtle hover:border-primary-soft transition-all"
                   >
-                    <div className="w-9 h-9 rounded-xl bg-white border border-primary-soft text-primary-base flex items-center justify-center mb-3 shadow-xs">
+                    <div className="w-9 h-9 rounded-xl bg-white border border-border-subtle text-primary-base flex items-center justify-center mb-3 shadow-xs">
                       <Icon className="w-4.5 h-4.5" />
                     </div>
                     <h4 className="font-display font-bold text-sm text-foreground-intense leading-snug">
@@ -152,9 +159,9 @@ export default function Section03Opportunites() {
                 return (
                   <div
                     key={item.title}
-                    className="p-4 rounded-2xl bg-primary-subtle/30 border border-primary-soft/70 hover:border-primary-base/40 hover:bg-primary-subtle/50 transition-all"
+                    className="p-4 rounded-2xl bg-surface-subtle border border-border-subtle hover:border-primary-soft transition-all"
                   >
-                    <div className="w-9 h-9 rounded-xl bg-white border border-primary-soft text-primary-base flex items-center justify-center mb-3 shadow-xs">
+                    <div className="w-9 h-9 rounded-xl bg-white border border-border-subtle text-primary-base flex items-center justify-center mb-3 shadow-xs">
                       <Icon className="w-4.5 h-4.5" />
                     </div>
                     <h4 className="font-display font-bold text-sm text-foreground-intense leading-snug">
@@ -179,13 +186,15 @@ export default function Section03Opportunites() {
           </div>
         </Card>
 
-        {/* Déroulement 5 étapes : version compacte pour ne pas allonger
-            inutilement la section (fini les gros connecteurs verticaux). */}
+        {/* Déroulement en 5 étapes : timeline horizontale pleine largeur
+            (même grammaire visuelle que le parcours client de Section01)
+            plutôt qu'une liste verticale dense, avec l'étape "commission"
+            mise en scène comme point d'orgue. */}
         <Card
           className="[--card-radius:2rem] shadow-md"
-          contentProps={{ className: 'p-6 sm:p-10 lg:p-12 relative overflow-hidden' }}
+          contentProps={{ className: 'p-6 sm:p-10 lg:p-14 relative overflow-visible' }}
         >
-          <div className="text-center mb-8">
+          <div className="text-center mb-12 sm:mb-16">
             <div className="mb-2">
               <SectionEyebrow tone="sm">COMMENT ÇA FONCTIONNE</SectionEyebrow>
             </div>
@@ -194,45 +203,53 @@ export default function Section03Opportunites() {
             </h4>
           </div>
 
-          <div className="space-y-2.5 max-w-6xl mx-auto">
-            {steps.map((step) => (
-              <div
-                key={step.num}
-                className="group bg-white hover:bg-primary-subtle/30 p-4 sm:p-5 rounded-2xl border border-primary-soft/80 hover:border-primary-base/50 transition-all duration-300 flex items-center gap-4 sm:gap-6"
-              >
-                <Badge
-                  variant="soft"
-                  className="font-mono font-black text-xs px-3 py-1.5 rounded-xl bg-foreground-intense text-white before:bg-transparent shadow-xs shrink-0"
-                >
-                  {step.num}
-                </Badge>
-                <div className="flex-1 min-w-0">
-                  <span className="font-display font-bold text-sm sm:text-base text-foreground-intense block">
-                    {step.text}
-                  </span>
-                  <span className="text-xs text-foreground-muted font-medium">
-                    {step.detail}
-                  </span>
-                </div>
-              </div>
-            ))}
+          <div className="relative">
+            {/* Ligne de parcours continue reliant les 5 étapes (desktop),
+                avec un filet de lumière qui la parcourt en continu. */}
+            <div
+              className="hidden lg:block absolute top-8 left-[10%] right-[10%] h-0.5 rounded-full bg-border-subtle overflow-hidden"
+              aria-hidden="true"
+            >
+              <div className="h-full w-1/5 bg-gradient-to-r from-transparent via-primary-base to-transparent animate-journey-beam" />
+            </div>
 
-            {/* Étape 05 : LE POINT D'ORGUE MIS EN VALEUR */}
-            <div className="group bg-gradient-to-r from-primary-subtle/70 via-white to-primary-subtle/40 p-4 sm:p-5 rounded-2xl border-2 border-primary-base flex items-center gap-4 sm:gap-6">
-              <Badge
-                variant="soft"
-                className="font-mono font-black text-xs px-3 py-1.5 rounded-xl bg-foreground-intense text-white before:bg-transparent shadow-xs shrink-0"
-              >
-                05
-              </Badge>
-              <div className="flex-1 min-w-0">
-                <span className="font-display font-bold text-sm sm:text-base text-foreground-intense block">
-                  Une commission est reversée au dirigeant
-                </span>
-                <span className="text-xs text-foreground-muted font-medium block">
-                  Revenu passif viré sur le compte de votre société (le 05 du mois).
-                </span>
-              </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-y-10 gap-x-6">
+              {steps.map((step) => {
+                const Icon = step.icon;
+                return (
+                  <div key={step.num} className="relative flex flex-col items-center text-center group">
+                    <span className="font-display text-xs font-black text-primary-base mb-2 select-none">
+                      {step.num}
+                    </span>
+
+                    <div
+                      className={`relative z-10 w-16 h-16 rounded-full flex items-center justify-center mb-4 transition-all duration-300 group-hover:-translate-y-1 ${
+                        step.highlighted
+                          ? 'bg-primary-base text-white shadow-lg shadow-primary-base/30 animate-glow-pulse'
+                          : 'bg-white border-2 border-primary-soft text-primary-base shadow-sm group-hover:border-primary-base group-hover:shadow-md'
+                      }`}
+                    >
+                      <Icon className="w-7 h-7" />
+                    </div>
+
+                    <h5 className="font-display font-bold text-sm sm:text-base text-foreground-intense leading-snug px-1">
+                      {step.text}
+                    </h5>
+                    <p className="text-xs text-foreground-muted mt-1.5 leading-relaxed max-w-[180px]">
+                      {step.detail}
+                    </p>
+
+                    {step.highlighted && (
+                      <Badge
+                        variant="soft"
+                        className="mt-3 gap-1.5 px-3 py-1 bg-primary-subtle text-primary-strong text-[10px] font-black uppercase tracking-wider before:bg-transparent"
+                      >
+                        Revenu passif
+                      </Badge>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </Card>

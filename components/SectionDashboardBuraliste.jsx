@@ -1141,11 +1141,11 @@ export default function SectionDashboardBuraliste({ onOpenContact }) {
                       return (
                         <div
                           key={trend.title}
-                          className="p-6 rounded-2xl bg-primary-subtle/40 border border-primary-soft hover:bg-primary-subtle/70 transition-all space-y-4"
+                          className="p-6 rounded-2xl bg-surface-subtle border border-border-subtle hover:border-primary-soft transition-all space-y-4"
                         >
                           <div className="flex items-center justify-between gap-3">
                             <div className="flex items-center gap-3">
-                              <div className="w-10 h-10 rounded-xl bg-white border border-primary-soft text-primary-base flex items-center justify-center shrink-0 shadow-xs">
+                              <div className="w-10 h-10 rounded-xl bg-white border border-border-subtle text-primary-base flex items-center justify-center shrink-0 shadow-xs">
                                 <Icon className="w-5 h-5" />
                               </div>
                               <div>
@@ -1158,14 +1158,14 @@ export default function SectionDashboardBuraliste({ onOpenContact }) {
                               </div>
                             </div>
                             <Badge
-                              variant="soft"
+                              variant="outline"
                               size="sm"
-                              className="px-3 py-1 bg-white text-primary-strong text-xs font-black border border-primary-soft shadow-xs shrink-0 before:bg-transparent"
+                              className="px-3 py-1 bg-white text-foreground-strong text-xs font-black border border-border-subtle shadow-xs shrink-0 before:bg-transparent"
                             >
                               {trend.tag}
                             </Badge>
                           </div>
-                          <p className="text-xs sm:text-sm text-foreground-strong leading-relaxed font-medium bg-white/80 p-3.5 rounded-xl border border-primary-soft/60">
+                          <p className="text-xs sm:text-sm text-foreground-strong leading-relaxed font-medium bg-white p-3.5 rounded-xl border border-border-subtle">
                             <strong className="text-primary-strong">Conseil comptoir :</strong> {trend.advice}
                           </p>
                         </div>
