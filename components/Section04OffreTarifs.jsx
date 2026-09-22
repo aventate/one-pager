@@ -23,7 +23,7 @@ const TIERS = [
       "Synchronisation officielle de votre fiche Google Maps",
       "Boutons d'action immédiate : Appel direct en 1 clic & Itinéraire GPS",
       "Affichage en direct de l'état de vos services (relais colis ouvert, borne en service)",
-      "Encart partenaire officiel Services Indep (Assurance & Alarme)",
+      "Encart partenaire officiel Services Indep (Assurance)",
     ],
     ctaLabel: "Choisir l'offre Essentiel",
     highlighted: false,

@@ -15,7 +15,7 @@ export default function EspaceBuralistePage() {
         <title>Espace Buraliste · Console Commerçante | SERVICES INDEP × AVENTATE SAS</title>
         <meta
           name="description"
-          content="Espace Buraliste privé : suivi en direct des commissions d'affaires partenaires (Assurance & Alarme), retrait express Click & Collect et tendances d'achats locales."
+          content="Espace Buraliste privé : suivi en direct des commissions d'affaires partenaires (Assurance), retrait express Click & Collect et tendances d'achats locales."
         />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
         <meta name="theme-color" content="#c6283c" />

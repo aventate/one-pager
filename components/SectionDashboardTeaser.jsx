@@ -7,7 +7,7 @@ export default function SectionDashboardTeaser() {
   const pillars = [
     { icon: ShieldCheck, title: "Commissions tracées", desc: "150 € / contrat · Virement le 05" },
     { icon: ShoppingBag, title: "Click & Collect", desc: "Scan QR Code ou code 4 chiffres" },
-    { icon: Sparkles, title: "Radar Quartier", desc: "Ce que vos clients cherchent" },
+    { icon: Sparkles, title: "Tendances de quartier", desc: "Ce que vos clients cherchent" },
   ];
 
   return (

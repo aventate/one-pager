@@ -35,9 +35,9 @@ import {
   TabsTrigger,
   Toggle,
   ToggleGroup,
-  Tooltip,
-  TooltipTrigger,
-  TooltipContent,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
 } from "@appica/ui-react";
 import {
   LayoutDashboard,
@@ -63,7 +63,7 @@ import SectionEyebrow from "./SectionEyebrow";
    comme dans le <select> natif d'origine. */
 const LEAD_SERVICE_LABELS = {
   "Assurance Multirisque Commerce": "Assurance Multirisque Commerce (Locaux, Stocks)",
-  "Télésurveillance & Alarme Homiris": "Télésurveillance & Alarme Locaux",
+  "Assurance Multirisque Habitation": "Assurance Multirisque Habitation (Résidence, Biens)",
   "Complémentaire Santé & Prévoyance TNS": "Complémentaire Santé & Prévoyance",
   "Assurance Auto & Flotte Professionnelle": "Assurance Flotte Pro",
 };
@@ -188,7 +188,7 @@ export default function SectionDashboardBuraliste({ onOpenContact }) {
     {
       id: "COM-103",
       client: "Mme Delorme (Particulier)",
-      service: "Télésurveillance & Alarme Homiris",
+      service: "Assurance Multirisque Habitation",
       amount: 150,
       date: "15 sept. 2026",
       status: "validated",
@@ -358,7 +358,7 @@ export default function SectionDashboardBuraliste({ onOpenContact }) {
             </div>
             <div className="inline-flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 text-primary-base shrink-0" />
-              <span className="leading-tight">Radar tendances de quartier</span>
+              <span className="leading-tight">Tendances de quartier</span>
             </div>
           </div>
 
@@ -484,7 +484,7 @@ export default function SectionDashboardBuraliste({ onOpenContact }) {
                   className="px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-black whitespace-nowrap flex items-center gap-2 data-selected:bg-white data-selected:text-foreground-intense data-selected:shadow-sm data-selected:ring-1 data-selected:ring-primary-soft"
                 >
                   <Sparkles className="w-4 h-4 text-primary-base" />
-                  <span>Radar Quartier</span>
+                  <span>Tendances Quartier</span>
                 </TabsTrigger>
 
                 <TabsTrigger
@@ -791,7 +791,7 @@ export default function SectionDashboardBuraliste({ onOpenContact }) {
 
                   </div>
 
-                  {/* Colonne droite (5 cols) : Radar Quartier & Automatisation */}
+                  {/* Colonne droite (5 cols) : Tendances Quartier & Automatisation */}
                   <div className="lg:col-span-5 space-y-6">
 
                     {/* Carte Tendance Locale du Quartier */}
@@ -828,7 +828,7 @@ export default function SectionDashboardBuraliste({ onOpenContact }) {
                         onClick={() => setActiveTab("trends")}
                         className="w-full py-3 px-4 h-auto border-primary-base/40 hover:border-primary-base text-foreground-intense font-bold text-xs rounded-xl shadow-xs gap-2"
                       >
-                        <span>Voir les 4 radars du quartier</span>
+                        <span>Voir les 4 tendances du quartier</span>
                         <ArrowRight className="w-4 h-4 text-primary-base" />
                       </Button>
                     </Card>
@@ -865,7 +865,7 @@ export default function SectionDashboardBuraliste({ onOpenContact }) {
                         Vos commissions partenaires en direct
                       </h3>
                       <p className="text-sm text-foreground-muted mt-1 font-medium">
-                        Chaque client orienté vers une solution Assurance ou Alarme vous rapporte 150 € après validation.
+                        Chaque client orienté vers une solution Assurance vous rapporte 150 € après validation.
                       </p>
                     </div>
 
@@ -1000,24 +1000,26 @@ export default function SectionDashboardBuraliste({ onOpenContact }) {
                           Gestion des retraits Click &amp; Collect
                         </h3>
                         {/* Détail (aucune connexion caisse, remise par QR code)
-                            déplacé dans une infobulle plutôt que 2 bandeaux
-                            fixes qui alourdissaient l'onglet. */}
-                        <Tooltip>
-                          <TooltipTrigger
+                            déplacé dans une infobulle au clic (Popover plutôt
+                            que Tooltip au survol, qui ne fonctionne pas sur
+                            les écrans tactiles de caisse visés ici) plutôt que
+                            2 bandeaux fixes qui alourdissaient l'onglet. */}
+                        <Popover>
+                          <PopoverTrigger
                             className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-surface-muted text-foreground-subtle hover:bg-primary-subtle hover:text-primary-base transition-colors shrink-0"
                             aria-label="Comment fonctionne la remise en caisse"
                           >
                             <Info className="w-3.5 h-3.5" />
-                          </TooltipTrigger>
-                          <TooltipContent className="max-w-xs text-xs leading-relaxed p-3.5 space-y-2">
+                          </PopoverTrigger>
+                          <PopoverContent className="max-w-xs text-xs leading-relaxed p-3.5 space-y-2">
                             <p>
                               <strong className="text-foreground-intense">Aucune connexion à votre logiciel de caisse</strong> (Strator, Bimedia, Devlyx) : la commande est préparée à part, puis encaissée normalement sur votre caisse habituelle au moment du retrait.
                             </p>
                             <p>
                               <strong className="text-foreground-intense">Zéro manipulation sur écran :</strong> le client présente son QR code, vous le bipez avec votre douchette (ou tapez le code à 4 chiffres). Clôturé en 1 seconde.
                             </p>
-                          </TooltipContent>
-                        </Tooltip>
+                          </PopoverContent>
+                        </Popover>
                       </div>
                       <p className="text-sm text-foreground-muted mt-1 font-medium">
                         Vos clients réservent sur votre site pour sécuriser leur stock. Remise express en boutique.
@@ -1110,7 +1112,7 @@ export default function SectionDashboardBuraliste({ onOpenContact }) {
               </TabsContent>
 
               {/* ========================================================= */}
-              {/* ONGLET 4 : RADAR DES TENDANCES DE QUARTIER                */}
+              {/* ONGLET 4 : TENDANCES DE QUARTIER                          */}
               {/* ========================================================= */}
               <TabsContent value="trends" className="space-y-8">
                 <Card

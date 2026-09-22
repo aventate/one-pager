@@ -79,7 +79,7 @@ export default function Home() {
         {/* 02 — Un site qui devient un outil commercial + Showroom interactif natif & Flash QR Code (Page 2 PDF) */}
         <Section02OutilCommercial />
 
-        {/* 03 — Opportunités complémentaires : Assurance & Alarme en 5 étapes (Page 3 PDF) */}
+        {/* 03 — Opportunités complémentaires : Assurance en 5 étapes (Page 3 PDF) */}
         <Section03Opportunites />
 
         {/* Carte Teaser Espace Buraliste : Redirection interne vers /espace-buraliste */}

@@ -31,7 +31,7 @@ export default function Section02OutilCommercial() {
   const guarantees = [
     { num: "01", title: "Horaires 7j/7", desc: "Certifiés en temps réel" },
     { num: "02", title: "Rayons & Relais", desc: "FDJ, colis, presse, vapotage" },
-    { num: "03", title: "Commissions", desc: "Assurance & Alarme Homiris" },
+    { num: "03", title: "Commissions", desc: "Partenaire Assurance" },
   ];
 
   return (
