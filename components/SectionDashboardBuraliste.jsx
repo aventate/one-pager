@@ -33,6 +33,8 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger,
+  Toggle,
+  ToggleGroup,
 } from "@appica/ui-react";
 import {
   LayoutDashboard,
@@ -50,6 +52,7 @@ import {
   Eye,
   QrCode,
   Scan,
+  CalendarRange,
 } from "lucide-react";
 import SectionEyebrow from "./SectionEyebrow";
 
@@ -97,12 +100,56 @@ const TREND_CARDS = [
   },
 ];
 
-const TRAFFIC_METRICS = [
-  { label: "Visites totales sur le site", value: "1 420", note: "+28% vs mois précédent", noteClass: "text-emerald-700 font-bold", valueClass: "text-foreground-intense" },
-  { label: "Consultations d'horaires", value: "840", note: "Évite les clients devant porte close", noteClass: "text-foreground-muted font-medium", valueClass: "text-foreground-intense" },
-  { label: "Itinéraires Google Maps", value: "185", note: "Clients guidés jusqu'à votre porte", noteClass: "text-foreground-muted font-medium", valueClass: "text-indigo-700" },
-  { label: "Appels en 1 clic", value: "92", note: "Pour vérifier un arrivage presse ou colis", noteClass: "text-foreground-muted font-medium", valueClass: "text-primary-base" },
+// Gestion de la temporalité : les mêmes compteurs se lisent au jour, à la
+// semaine ou au mois. On part d'un volume mensuel de référence et on le
+// ramène à la période choisie plutôt que de maintenir 3 jeux de chiffres.
+const PERIODS = [
+  { id: 'day', label: 'Jour', shortLabel: '/ jour', divisor: 30.4, trendNote: 'vs hier' },
+  { id: 'week', label: 'Semaine', shortLabel: '/ semaine', divisor: 4.35, trendNote: 'vs semaine dernière' },
+  { id: 'month', label: 'Mois', shortLabel: '/ mois', divisor: 1, trendNote: 'vs mois précédent' },
 ];
+
+const TRAFFIC_METRICS_BASE = [
+  { label: "Visites totales sur le site", monthly: 1420, trendPercent: 28, valueClass: "text-foreground-intense" },
+  { label: "Consultations d'horaires", monthly: 840, note: "Évite les clients devant porte close", valueClass: "text-foreground-intense" },
+  { label: "Itinéraires Google Maps", monthly: 185, note: "Clients guidés jusqu'à votre porte", valueClass: "text-indigo-700" },
+  { label: "Appels en 1 clic", monthly: 92, note: "Pour vérifier un arrivage presse ou colis", valueClass: "text-primary-base" },
+];
+
+function scaleForPeriod(monthly, divisor) {
+  return Math.max(1, Math.round(monthly / divisor));
+}
+
+function getTrafficMetrics(period) {
+  return TRAFFIC_METRICS_BASE.map((m) => ({
+    ...m,
+    value: scaleForPeriod(m.monthly, period.divisor).toLocaleString('fr-FR'),
+    note: m.trendPercent ? `+${m.trendPercent}% ${period.trendNote}` : m.note,
+    noteClass: m.trendPercent ? "text-emerald-700 font-bold" : "text-foreground-muted font-medium",
+  }));
+}
+
+/* Libellé de la période affichée, calculé sur la date du jour (semaine du
+   lundi au dimanche). */
+function getPeriodDateRangeLabel(periodId) {
+  const now = new Date();
+  if (periodId === 'day') {
+    return new Intl.DateTimeFormat('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' }).format(now);
+  }
+  if (periodId === 'month') {
+    const label = new Intl.DateTimeFormat('fr-FR', { month: 'long', year: 'numeric' }).format(now);
+    return label.charAt(0).toUpperCase() + label.slice(1);
+  }
+  const diffToMonday = (now.getDay() + 6) % 7;
+  const monday = new Date(now);
+  monday.setDate(now.getDate() - diffToMonday);
+  const sunday = new Date(monday);
+  sunday.setDate(monday.getDate() + 6);
+  const sameMonth = monday.getMonth() === sunday.getMonth();
+  const start = new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: sameMonth ? undefined : 'long' }).format(monday);
+  const end = new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }).format(sunday);
+  return `Semaine du ${start} au ${end}`;
+}
 
 const TOP_SEARCHES = [
   { term: "« tabac ouvert maintenant »", clicks: "412 clics" },
@@ -115,6 +162,10 @@ const TOP_SEARCHES = [
 
 export default function SectionDashboardBuraliste({ onOpenContact }) {
   const [activeTab, setActiveTab] = useState("overview"); // overview | commissions | orders | trends | traffic
+  const [periodId, setPeriodId] = useState("week"); // day | week | month : granularité des indicateurs de fréquentation
+  const period = PERIODS.find((p) => p.id === periodId) ?? PERIODS[1];
+  const periodDateRangeLabel = getPeriodDateRangeLabel(periodId);
+  const trafficMetrics = getTrafficMetrics(period);
   const [selectedOrderForDeepDive, setSelectedOrderForDeepDive] = useState(null);
   const [selectedCommissionForDeepDive, setSelectedCommissionForDeepDive] = useState(null);
   const [scanSuccessToast, setScanSuccessToast] = useState(null);
@@ -365,8 +416,11 @@ export default function SectionDashboardBuraliste({ onOpenContact }) {
             className="bg-white rounded-[32px] border border-border-subtle shadow-xl overflow-hidden"
           >
 
-            {/* Barre d'en-tête supérieure de la console */}
-            <div className="bg-surface-subtle border-b border-border-subtle p-6 sm:p-8 flex flex-col xl:flex-row xl:items-center justify-between gap-6">
+            {/* Barre d'en-tête supérieure de la console : toujours empilée
+                (nom du commerce, puis onglets pleine largeur) plutôt que
+                côte à côte à partir de xl, ce qui condamnait les onglets à
+                une largeur trop étroite et forçait un défilement horizontal. */}
+            <div className="bg-surface-subtle border-b border-border-subtle p-6 sm:p-8 space-y-6">
 
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-2xl bg-primary-subtle border border-primary-soft flex items-center justify-center text-primary-base shrink-0 shadow-xs">
@@ -384,14 +438,15 @@ export default function SectionDashboardBuraliste({ onOpenContact }) {
                 </div>
               </div>
 
-              {/* Barre d'onglets de navigation interactive */}
+              {/* Barre d'onglets : passe à la ligne plutôt que défiler, les
+                  5 onglets restent donc toujours entièrement visibles. */}
               <TabsList
                 aria-label="Sections de la console"
-                className="gap-2 bg-surface-strong/80 p-1.5 rounded-2xl self-start xl:self-auto overflow-x-auto max-w-full"
+                className="flex-wrap gap-2 bg-surface-strong/80 p-1.5 rounded-2xl w-full"
               >
                 <TabsTrigger
                   value="overview"
-                  className="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-black whitespace-nowrap flex items-center gap-2 data-selected:bg-white data-selected:text-foreground-intense data-selected:shadow-sm data-selected:ring-1 data-selected:ring-primary-soft"
+                  className="px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-black whitespace-nowrap flex items-center gap-2 data-selected:bg-white data-selected:text-foreground-intense data-selected:shadow-sm data-selected:ring-1 data-selected:ring-primary-soft"
                 >
                   <LayoutDashboard className="w-4 h-4 text-primary-base" />
                   <span>Vue d'ensemble</span>
@@ -399,7 +454,7 @@ export default function SectionDashboardBuraliste({ onOpenContact }) {
 
                 <TabsTrigger
                   value="commissions"
-                  className="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-black whitespace-nowrap flex items-center gap-2 data-selected:bg-white data-selected:text-foreground-intense data-selected:shadow-sm data-selected:ring-1 data-selected:ring-primary-soft"
+                  className="px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-black whitespace-nowrap flex items-center gap-2 data-selected:bg-white data-selected:text-foreground-intense data-selected:shadow-sm data-selected:ring-1 data-selected:ring-primary-soft"
                 >
                   <DollarSign className="w-4 h-4 text-primary-base" />
                   <span>Commissions ({totalCommissionsAmount} €)</span>
@@ -407,7 +462,7 @@ export default function SectionDashboardBuraliste({ onOpenContact }) {
 
                 <TabsTrigger
                   value="orders"
-                  className="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-black whitespace-nowrap flex items-center gap-2 data-selected:bg-white data-selected:text-foreground-intense data-selected:shadow-sm data-selected:ring-1 data-selected:ring-primary-soft"
+                  className="px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-black whitespace-nowrap flex items-center gap-2 data-selected:bg-white data-selected:text-foreground-intense data-selected:shadow-sm data-selected:ring-1 data-selected:ring-primary-soft"
                 >
                   <ShoppingBag className="w-4 h-4 text-primary-base" />
                   <span>Commandes</span>
@@ -424,15 +479,15 @@ export default function SectionDashboardBuraliste({ onOpenContact }) {
 
                 <TabsTrigger
                   value="trends"
-                  className="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-black whitespace-nowrap flex items-center gap-2 data-selected:bg-white data-selected:text-foreground-intense data-selected:shadow-sm data-selected:ring-1 data-selected:ring-primary-soft"
+                  className="px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-black whitespace-nowrap flex items-center gap-2 data-selected:bg-white data-selected:text-foreground-intense data-selected:shadow-sm data-selected:ring-1 data-selected:ring-primary-soft"
                 >
                   <Sparkles className="w-4 h-4 text-primary-base" />
-                  <span>Radar Tendances</span>
+                  <span>Radar Quartier</span>
                 </TabsTrigger>
 
                 <TabsTrigger
                   value="traffic"
-                  className="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-black whitespace-nowrap flex items-center gap-2 data-selected:bg-white data-selected:text-foreground-intense data-selected:shadow-sm data-selected:ring-1 data-selected:ring-primary-soft"
+                  className="px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-black whitespace-nowrap flex items-center gap-2 data-selected:bg-white data-selected:text-foreground-intense data-selected:shadow-sm data-selected:ring-1 data-selected:ring-primary-soft"
                 >
                   <BarChart3 className="w-4 h-4 text-primary-base" />
                   <span>Fréquentation Google</span>
@@ -443,6 +498,32 @@ export default function SectionDashboardBuraliste({ onOpenContact }) {
 
             {/* Corps de la Console */}
             <div className="p-6 sm:p-8 lg:p-10 space-y-8 bg-white">
+
+              {/* Sélecteur de période : les compteurs de fréquentation se
+                  lisent au jour, à la semaine ou au mois, pour savoir où
+                  on en est jour par jour ou semaine par semaine. */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2">
+                <div className="flex items-center gap-2 text-xs sm:text-sm text-foreground-muted font-medium">
+                  <CalendarRange className="w-4 h-4 text-primary-base shrink-0" />
+                  <span>{periodDateRangeLabel}</span>
+                </div>
+                <ToggleGroup
+                  value={[periodId]}
+                  onValueChange={(v) => { if (v.length) setPeriodId(v[0]); }}
+                  aria-label="Période des indicateurs"
+                  className="inline-flex items-center gap-1 bg-surface-muted p-1 rounded-xl self-start sm:self-auto"
+                >
+                  {PERIODS.map((p) => (
+                    <Toggle
+                      key={p.id}
+                      value={p.id}
+                      className="px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all data-pressed:bg-foreground-intense data-pressed:text-white data-pressed:shadow-sm"
+                    >
+                      {p.label}
+                    </Toggle>
+                  ))}
+                </ToggleGroup>
+              </div>
 
               {/* 4 GRANDES CARTES KPI INTERACTIVES (EN CLIC RAPIDE VERS LES ONGLETS) */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -517,10 +598,10 @@ export default function SectionDashboardBuraliste({ onOpenContact }) {
                   </div>
                   <div className="flex items-baseline gap-2">
                     <span className="font-display font-black text-3xl sm:text-4xl text-foreground-intense">
-                      1 420
+                      {scaleForPeriod(TRAFFIC_METRICS_BASE[0].monthly, period.divisor).toLocaleString('fr-FR')}
                     </span>
                     <Badge variant="secondary" size="xs" className="text-xs font-bold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded-md">
-                      visites / mois
+                      visites {period.shortLabel}
                     </Badge>
                   </div>
                 </Card>
@@ -708,7 +789,7 @@ export default function SectionDashboardBuraliste({ onOpenContact }) {
 
                   </div>
 
-                  {/* Colonne droite (5 cols) : Radar Tendances & Automatisation */}
+                  {/* Colonne droite (5 cols) : Radar Quartier & Automatisation */}
                   <div className="lg:col-span-5 space-y-6">
 
                     {/* Carte Tendance Locale du Quartier */}
@@ -932,6 +1013,20 @@ export default function SectionDashboardBuraliste({ onOpenContact }) {
                     </div>
                   </div>
 
+                  {/* Rappel du principe : aucune connexion au logiciel de caisse */}
+                  <Alert
+                    variant="info"
+                    layout="inline"
+                    className="rounded-2xl bg-primary-subtle/50 border border-primary-soft text-xs sm:text-sm text-foreground-strong"
+                  >
+                    <AlertIcon>
+                      <ShieldCheck className="w-5 h-5 text-primary-base shrink-0" />
+                    </AlertIcon>
+                    <AlertDescription className="text-foreground-strong">
+                      <strong className="text-foreground-intense">Aucune connexion à votre logiciel de caisse</strong> (Strator, Bimedia, Devlyx) : la commande est préparée à part, puis encaissée normalement sur votre caisse habituelle au moment du retrait.
+                    </AlertDescription>
+                  </Alert>
+
                   {/* Bannière ergonomie comptoir */}
                   <Alert
                     variant="success"
@@ -1103,11 +1198,16 @@ export default function SectionDashboardBuraliste({ onOpenContact }) {
                     <p className="text-base text-foreground-muted mt-2 max-w-5xl leading-relaxed font-medium">
                       Voici comment les habitants et passants de votre quartier trouvent votre commerce lorsqu'ils sont dans la rue avec leur smartphone.
                     </p>
+                    <div className="flex items-center gap-2 text-xs text-foreground-muted font-bold mt-3">
+                      <CalendarRange className="w-3.5 h-3.5 text-primary-base shrink-0" />
+                      <span>Données pour : {periodDateRangeLabel}</span>
+                    </div>
                   </div>
 
-                  {/* Métriques d'impact */}
+                  {/* Métriques d'impact, ramenées à la période sélectionnée
+                      dans l'onglet Vue d'ensemble */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {TRAFFIC_METRICS.map((m) => (
+                    {trafficMetrics.map((m) => (
                       <Card key={m.label} className="[--card-radius:1rem] shadow-xs" contentProps={{ className: 'p-6' }}>
                         <span className="text-xs font-bold text-foreground-subtle uppercase block">{m.label}</span>
                         <strong className={`font-display font-black text-3xl mt-1 block ${m.valueClass}`}>{m.value}</strong>

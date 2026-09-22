@@ -101,25 +101,6 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Échelle et zoom immersif pour correspondre exactement à la capture 2 */
-@media (min-width: 1024px) {
-  html {
-    zoom: 1.45;
-  }
-}
-
-@media (min-width: 1280px) {
-  html {
-    zoom: 1.55;
-  }
-}
-
-@media (min-width: 1600px) {
-  html {
-    zoom: 1.6;
-  }
-}
-
 body {
   background-color: #f8f6f5;
   color: var(--foreground-intense);
@@ -260,6 +241,21 @@ body {
 
 .animate-bounce-gentle {
   animation: bounce-gentle 2s infinite ease-in-out;
+}
+
+/* Filet de lumière qui parcourt en continu la ligne de connexion du
+   parcours client immersif (Section01). */
+@keyframes journey-beam {
+  0% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(420%);
+  }
+}
+
+.animate-journey-beam {
+  animation: journey-beam 2.8s linear infinite;
 }
 
 .interactive-card {

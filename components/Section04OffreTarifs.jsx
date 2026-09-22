@@ -1,32 +1,79 @@
-import { useState } from 'react';
-import { Alert, AlertIcon, AlertDescription, Badge, Card, CardTitle, RadioGroup, Radio } from '@appica/ui-react';
-import { Server, Rocket, Wrench, Shield, HardDrive, Database, RefreshCw, Activity, Headphones, Check, Clock } from 'lucide-react';
+import { Badge, BorderBeam, Button, Card, CardTitle } from '@appica/ui-react';
+import { Check, Plus, Star, Sparkles, ArrowRight } from 'lucide-react';
 import SectionEyebrow from './SectionEyebrow';
 
-export default function Section04OffreTarifs() {
-  const [selectedPlan, setSelectedPlan] = useState('monthly'); // 'monthly' | 'annual'
+/**
+ * Les 3 formules sont volontairement décrites sans aucun jargon technique
+ * (pas de "Next.js", "API"…) : le public visé est un commerçant, pas un
+ * développeur. Chaque option d'ajout reprend le libellé et le prix exacts
+ * validés avec le client.
+ */
+const TIERS = [
+  {
+    id: 'essentiel',
+    title: 'ESSENTIEL',
+    subtitle: "Le socle digital moderne pour être vu et trouvé dans votre quartier.",
+    creationPrice: '5 000 €',
+    monthlyPrice: '99 €',
+    features: [
+      "Site internet sur-mesure ultra-rapide sur smartphone",
+      "Référencement local prioritaire sur Google (Tabac, Presse, Colis, FDJ, Vape, etc.)",
+      "Synchronisation officielle de votre fiche Google Maps",
+      "Boutons d'action immédiate : Appel direct en 1 clic & Itinéraire GPS",
+      "Affichage en direct de l'état de vos services (relais colis ouvert, borne en service)",
+      "Encart partenaire officiel Services Indep (Assurance & Alarme)",
+    ],
+    ctaLabel: "Choisir l'offre Essentiel",
+    highlighted: false,
+    options: [
+      { label: "Tableau de bord smartphone + MAJ horaires par SMS", price: "+ 1 200 € HT | + 30 €/m" },
+      { label: "Réservation express au comptoir", price: "+ 800 € HT | + 20 €/m" },
+      { label: "Standardiste automatique WhatsApp 24/7", price: "+ 1 500 € HT | + 30 €/m" },
+      { label: "Pass Fidélité Apple & Google Wallet", price: "+ 1 200 € HT | + 25 €/m" },
+    ],
+  },
+  {
+    id: 'commercant',
+    title: 'COMMERÇANT',
+    subtitle: "Le site qui devient un véritable outil de gestion et de gain de temps au comptoir.",
+    creationPrice: '7 000 €',
+    monthlyPrice: '149 €',
+    monthlyNote: 'inclut jusqu’à 4h de modifications par mois',
+    features: [
+      "Tout ce qui est inclus dans l'offre Essentiel",
+      "Tableau de bord privé sur smartphone (suivi des recherches du quartier et des visites)",
+      "Mise à jour de vos horaires fériés et congés par simple SMS en 10 secondes",
+      "Guide interactif des démarches au guichet (checklist pièces pour colis et compte Nickel)",
+      "Module de réservation express au comptoir (sans toucher à votre logiciel de caisse)",
+    ],
+    ctaLabel: "Choisir l'offre Commerçant",
+    highlighted: true,
+    badge: "FORMULE CONSEILLÉE",
+    options: [
+      { label: "Standardiste automatique WhatsApp 24/7", price: "+ 1 500 € HT | + 30 €/m" },
+      { label: "Pass Fidélité Apple & Google Wallet", price: "+ 1 200 € HT | + 25 €/m" },
+    ],
+  },
+  {
+    id: 'performance',
+    title: 'PERFORMANCE',
+    subtitle: "La solution complète pour filtrer les appels parasites et fidéliser votre flux client.",
+    creationPrice: '9 500 €',
+    monthlyPrice: '199 €',
+    monthlyNote: 'support prioritaire',
+    features: [
+      "Tout ce qui est inclus dans l'offre Commerçant",
+      "Standardiste automatique WhatsApp 24/7 (filtre 80 % des appels sur les colis et horaires)",
+      "Pass Fidélité dématérialisé Apple Wallet & Google Wallet dans le téléphone des clients",
+      "Notifications gratuites sur l'écran verrouillé des smartphones du quartier",
+    ],
+    ctaLabel: "Choisir l'offre Performance",
+    highlighted: false,
+    reassurance: "Formule intégrale : toutes les fonctionnalités et options sont déjà incluses.",
+  },
+];
 
-  const technicalPillars = [
-    { icon: Server, title: "Hébergement professionnel", desc: "Serveurs ultra-rapides et sécurisés" },
-    { icon: Rocket, title: "Mise en production", desc: "Configuration de votre nom de domaine" },
-    { icon: Wrench, title: "Maintenance continue", desc: "Surveillance technique permanente" },
-    { icon: Shield, title: "Sécurité & SSL", desc: "Certificats et protection anti-attaques" },
-    { icon: HardDrive, title: "Sauvegardes automatiques", desc: "Données protégées chaque jour" },
-    { icon: Database, title: "Base de données", desc: "Gestion des produits et stocks" },
-    { icon: RefreshCw, title: "Mises à jour système", desc: "Compatibilité navigateurs & mobiles" },
-    { icon: Activity, title: "Surveillance 24/7", desc: "Disponibilité garantie continue" },
-    { icon: Headphones, title: "Support réactif", desc: "Équipe joignable et à votre écoute" },
-  ];
-
-  const planCardClass = (isSelected, accent) =>
-    `p-6 sm:p-8 rounded-2xl border-2 transition-all cursor-pointer flex flex-col justify-between relative overflow-hidden ${
-      isSelected
-        ? accent === 'primary'
-          ? 'bg-white border-primary-base shadow-lg ring-2 ring-primary-soft'
-          : 'bg-white border-foreground-intense shadow-lg ring-2 ring-foreground-intense/10'
-        : 'bg-surface-subtle border-border-subtle hover:border-border-strong'
-    }`;
-
+export default function Section04OffreTarifs({ onOpenContact }) {
   return (
     <section id="section-04" className="py-16 sm:py-20 border-b border-border-subtle">
       <div className="w-full max-w-[1780px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -34,7 +81,7 @@ export default function Section04OffreTarifs() {
         {/* En-Tête Centré */}
         <div className="mb-10 sm:mb-14 text-center max-w-7xl mx-auto">
           <div className="mb-6">
-            <SectionEyebrow dot>04 · VOTRE OFFRE TARIFAIRE</SectionEyebrow>
+            <SectionEyebrow number="04">VOTRE OFFRE TARIFAIRE</SectionEyebrow>
           </div>
 
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight text-foreground-intense mb-4">
@@ -46,197 +93,128 @@ export default function Section04OffreTarifs() {
           </p>
         </div>
 
-        {/* 1. CARTE CRÉATION DE VOTRE SOLUTION */}
-        <Card
-          className="[--card-radius:1.5rem] shadow-sm mb-12"
-          contentProps={{ className: 'p-6 sm:p-10 text-center sm:text-left' }}
-        >
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
-            <div>
-              <div className="mb-3">
-                <SectionEyebrow tone="sm">CRÉATION DE VOTRE SOLUTION DIGITALE</SectionEyebrow>
-              </div>
-              <CardTitle className="font-display font-black text-2xl sm:text-3xl text-foreground-intense">
-                Site web et solution digitale de votre commerce
-              </CardTitle>
-              <div className="mt-4 flex items-baseline justify-center sm:justify-start gap-3">
-                <span className="text-sm text-foreground-subtle font-bold uppercase tracking-wider">À partir de</span>
-                <span className="font-display text-5xl sm:text-6xl font-black text-foreground-intense">
-                  5 000 €
-                </span>
-                <span className="text-sm font-bold text-foreground-muted">HT</span>
-              </div>
-            </div>
-
-            <div className="max-w-3xl bg-primary-subtle/50 p-6 rounded-2xl border border-primary-soft text-sm sm:text-base text-foreground-strong leading-relaxed font-medium">
-              <span className="font-display font-bold text-primary-strong block mb-1 text-base sm:text-lg">
-                Un budget adapté à votre projet
-              </span>
-              Plus votre projet est important, complexe et demande du temps de développement, plus le budget évolue en conséquence. Tout est cadré et validé dès le départ.
-            </div>
-          </div>
-        </Card>
-
-        {/* 2. UNE SOLUTION GÉRÉE DE A À Z (9 PILIERS TECHNIQUES INTERVERTIS EN PREMIER) */}
-        <Card
-          className="[--card-radius:1.5rem] shadow-sm mb-12"
-          contentProps={{ className: 'p-6 sm:p-10' }}
-        >
-          <div className="text-center mb-8 max-w-6xl mx-auto">
-            <div className="mb-3">
-              <SectionEyebrow tone="sm">UNE SOLUTION GÉRÉE DE A À Z</SectionEyebrow>
-            </div>
-            <h3 className="font-display text-2xl sm:text-3xl lg:text-4xl font-black text-foreground-intense tracking-tight">
-              Toute la technique est prise en charge pour vous
-            </h3>
-            <p className="text-sm sm:text-base text-foreground-muted mt-2 font-medium">
-              Vous n’avez pas à vous occuper de la technique : elle est assurée et surveillée en continu par Services Indep.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-            {technicalPillars.map((p, idx) => {
-              const Icon = p.icon;
-              return (
-                <div
-                  key={idx}
-                  className="p-5 bg-primary-subtle/40 hover:bg-primary-subtle/80 rounded-2xl border border-primary-soft hover:border-primary-base/50 transition-all flex items-start gap-4"
+        {/* Grille comparative des 3 offres */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
+          {TIERS.map((tier) => {
+            const card = (
+              <Card
+                className={`[--card-radius:1.5rem] transition-all h-full ${
+                  tier.highlighted
+                    ? 'shadow-lg ring-1 ring-primary-soft'
+                    : 'shadow-xs'
+                }`}
+                contentProps={{
+                  className: `p-6 sm:p-8 flex flex-col h-full ${
+                    tier.highlighted ? 'border-2 border-primary-base' : ''
+                  }`,
+                }}
+              >
+              {/* Badge de mise en avant discrète, tier « Commerçant » uniquement */}
+              {tier.badge && (
+                <Badge
+                  variant="primary"
+                  className="self-start gap-1.5 mb-4 px-3 py-1 text-[11px] font-black uppercase tracking-wider"
                 >
-                  <div className="w-11 h-11 rounded-xl bg-white border border-primary-soft text-primary-base flex items-center justify-center shrink-0 shadow-xs">
-                    <Icon className="w-5 h-5 text-primary-base" />
-                  </div>
-                  <div>
-                    <h4 className="font-display font-bold text-base text-foreground-intense">
-                      {p.title}
-                    </h4>
-                    <p className="text-xs sm:text-sm text-foreground-muted mt-0.5 leading-snug font-medium">
-                      {p.desc}
-                    </p>
-                  </div>
+                  <Star className="w-3 h-3 fill-current" />
+                  <span>{tier.badge}</span>
+                </Badge>
+              )}
+              {!tier.badge && <div className="mb-4 h-[26px]" aria-hidden="true" />}
+
+              <CardTitle className="font-display font-black text-2xl text-foreground-intense tracking-tight">
+                {tier.title}
+              </CardTitle>
+              <p className="text-sm text-foreground-muted mt-2 leading-relaxed min-h-[3.5rem]">
+                {tier.subtitle}
+              </p>
+
+              {/* Tarification */}
+              <div className="mt-5 pt-5 border-t border-border-subtle">
+                <div className="flex items-baseline gap-2">
+                  <span className="text-xs text-foreground-subtle font-bold uppercase tracking-wider">Création</span>
+                  <span className="font-display text-2xl font-black text-foreground-intense">{tier.creationPrice}</span>
+                  <span className="text-xs font-bold text-foreground-muted">HT</span>
                 </div>
-              );
-            })}
-          </div>
-        </Card>
-
-        {/* 3. LES DEUX FORMULES D'ABONNEMENT (COMPACTES COMME LA SECTION 5) */}
-        <Card
-          className="[--card-radius:1.5rem] shadow-md"
-          contentProps={{ className: 'p-6 sm:p-10' }}
-        >
-          <div className="text-center mb-8 max-w-6xl mx-auto">
-            <div className="mb-3">
-              <SectionEyebrow tone="sm">ABONNEMENT · DEUX FORMULES DE PAIEMENT</SectionEyebrow>
-            </div>
-            <h3 className="font-display text-2xl sm:text-3xl lg:text-4xl font-black text-foreground-intense tracking-tight">
-              Choisissez votre rythme de paiement
-            </h3>
-            <p className="text-sm sm:text-base text-foreground-muted mt-2 font-medium">
-              Gestion, maintenance et jusqu’à <strong className="text-foreground-intense font-bold">4 h de modifications incluses</strong> chaque mois.
-            </p>
-          </div>
-
-          {/* Deux cartes condensées — sélection au clavier via RadioGroup */}
-          <RadioGroup
-            value={selectedPlan}
-            onValueChange={setSelectedPlan}
-            orientation="horizontal"
-            aria-label="Rythme de paiement de l'abonnement"
-            className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto items-stretch"
-          >
-
-            {/* Option 1 : Mensuel */}
-            <label className={planCardClass(selectedPlan === 'monthly', 'dark')}>
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-2">
-                    <Radio value="monthly" />
-                    <span className="text-sm font-mono font-bold text-foreground-subtle">OPTION 1 :</span>
-                    <span className="text-sm font-black uppercase tracking-wider text-foreground-intense">MENSUEL</span>
-                  </div>
+                <div className="flex items-baseline gap-2 mt-1.5">
+                  <span className="text-xs text-foreground-subtle font-bold uppercase tracking-wider">Gestion</span>
+                  <span className="font-display text-lg font-black text-primary-base">{tier.monthlyPrice}</span>
+                  <span className="text-xs font-bold text-foreground-muted">HT / mois</span>
                 </div>
-
-                <div className="flex items-baseline gap-2 mb-2">
-                  <span className="font-display text-4xl sm:text-5xl font-black text-foreground-intense">149 €</span>
-                  <span className="text-sm font-bold text-foreground-muted">/ mois HT</span>
-                </div>
-
-                <div className="text-xs font-bold text-foreground-muted mb-5">
-                  Facturé chaque mois sans à-coup · Soit 3 576 € sur 24 mois
-                </div>
-
-                <ul className="space-y-2.5 text-xs sm:text-sm text-foreground-strong font-medium">
-                  <li className="flex items-center gap-2.5">
-                    <Check className="w-4 h-4 text-emerald-600 shrink-0" />
-                    <span>4h de modifications mensuelles incluses</span>
-                  </li>
-                  <li className="flex items-center gap-2.5">
-                    <Check className="w-4 h-4 text-emerald-600 shrink-0" />
-                    <span>Hébergement professionnel &amp; sécurité inclus</span>
-                  </li>
-                  <li className="flex items-center gap-2.5">
-                    <Check className="w-4 h-4 text-emerald-600 shrink-0" />
-                    <span>Support réactif et dédié au quotidien</span>
-                  </li>
-                </ul>
+                <span className="text-xs text-foreground-muted block mt-1">
+                  Engagement 24 mois{tier.monthlyNote ? ` · ${tier.monthlyNote}` : ''}
+                </span>
               </div>
-            </label>
 
-            {/* Option 2 : Annuel (-20%) */}
-            <label className={planCardClass(selectedPlan === 'annual', 'primary')}>
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-2">
-                    <Radio value="annual" />
-                    <span className="text-sm font-mono font-bold text-primary-base">OPTION 2 :</span>
-                    <span className="text-sm font-black uppercase tracking-wider text-foreground-intense">ANNUEL</span>
+              {/* Fonctionnalités incluses */}
+              <ul className="space-y-2.5 mt-6 text-sm text-foreground-strong">
+                {tier.features.map((f) => (
+                  <li key={f} className="flex items-start gap-2.5">
+                    <Check className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span className="leading-snug">{f}</span>
+                  </li>
+                ))}
+              </ul>
+
+              {/* Le reste du contenu (bouton + options) est ancré en bas de
+                  carte pour que les 3 boutons restent alignés horizontalement
+                  quel que soit le nombre de lignes au-dessus. */}
+              <div className="mt-auto pt-6">
+                <Button
+                  size="lg"
+                  onClick={onOpenContact}
+                  className={`w-full h-auto py-3.5 font-black text-sm rounded-xl gap-2 ${
+                    tier.highlighted ? 'aventate-glow-button shadow-md' : ''
+                  }`}
+                  variant={tier.highlighted ? undefined : 'outline'}
+                >
+                  <span>{tier.ctaLabel}</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Button>
+
+                {tier.options ? (
+                  <div className="mt-5 pt-5 border-t border-border-subtle">
+                    <span className="text-xs font-black uppercase tracking-wider text-foreground-subtle block mb-3">
+                      Options à ajouter dès la commande :
+                    </span>
+                    <ul className="space-y-2.5">
+                      {tier.options.map((opt) => (
+                        <li key={opt.label} className="flex items-start gap-2 text-xs">
+                          <Plus className="w-3.5 h-3.5 text-primary-base shrink-0 mt-0.5" />
+                          <span className="text-foreground-strong leading-snug flex-1">
+                            {opt.label}
+                            <span className="block text-foreground-muted font-bold mt-0.5">{opt.price}</span>
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <Badge variant="primary" className="text-xs font-black px-3 py-1 uppercase tracking-wider shadow-xs">
-                    -20 %
-                  </Badge>
-                </div>
-
-                <div className="flex items-baseline gap-2 mb-2">
-                  <span className="font-display text-4xl sm:text-5xl font-black text-foreground-intense">1 430,40 €</span>
-                  <span className="text-sm font-bold text-foreground-muted">/ an HT</span>
-                </div>
-
-                <div className="text-xs font-bold text-emerald-700 mb-5">
-                  Soit 119,20 € / mois · <span className="underline">715,20 € économisés sur 24 mois</span>
-                </div>
-
-                <ul className="space-y-2.5 text-xs sm:text-sm text-foreground-strong font-medium">
-                  <li className="flex items-center gap-2.5">
-                    <Check className="w-4 h-4 text-primary-base shrink-0" />
-                    <span>4h de modifications mensuelles incluses</span>
-                  </li>
-                  <li className="flex items-center gap-2.5">
-                    <Check className="w-4 h-4 text-primary-base shrink-0" />
-                    <span>Tarif préférentiel garanti 24 mois</span>
-                  </li>
-                  <li className="flex items-center gap-2.5">
-                    <Check className="w-4 h-4 text-primary-base shrink-0" />
-                    <span>Gestion technique prioritaire 24/7</span>
-                  </li>
-                </ul>
+                ) : (
+                  <div className="mt-5 pt-5 border-t border-border-subtle flex items-start gap-2.5 text-xs text-primary-strong font-bold">
+                    <Sparkles className="w-4 h-4 text-primary-base shrink-0 mt-0.5" />
+                    <span className="leading-snug">{tier.reassurance}</span>
+                  </div>
+                )}
               </div>
-            </label>
+              </Card>
+            );
 
-          </RadioGroup>
-
-          {/* Engagement */}
-          <Alert
-            layout="inline"
-            className="mt-8 rounded-2xl bg-surface-subtle border border-border-subtle text-xs sm:text-sm text-foreground-strong justify-center gap-3 shadow-xs text-center font-medium max-w-5xl mx-auto"
-          >
-            <AlertIcon>
-              <Clock className="w-4 h-4 text-primary-base shrink-0" />
-            </AlertIcon>
-            <AlertDescription className="text-foreground-strong">
-              <strong className="text-foreground-intense font-bold">Engagement de 24 mois minimum</strong>, renouvelable ensuite.
-            </AlertDescription>
-          </Alert>
-        </Card>
+            // Filet lumineux discret autour de la seule offre mise en avant.
+            return tier.highlighted ? (
+              <BorderBeam
+                key={tier.id}
+                className="rounded-2xl"
+                color="var(--primary-soft)"
+                length={22}
+                thickness={1.5}
+                speed={9}
+              >
+                {card}
+              </BorderBeam>
+            ) : (
+              <div key={tier.id}>{card}</div>
+            );
+          })}
+        </div>
 
       </div>
     </section>

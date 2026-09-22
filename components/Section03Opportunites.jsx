@@ -1,22 +1,36 @@
-import { Badge, Card, CardTitle, CardDescription } from '@appica/ui-react';
-import { Shield, Bell, ArrowDown } from 'lucide-react';
+import { Badge, Card, CardTitle, CardDescription, Separator } from '@appica/ui-react';
+import { Shield, ArrowDown, ShieldCheck, Building2, Landmark, HeartPulse, Umbrella, Scale, Briefcase, HeartHandshake, Users, LayoutGrid, CheckCircle2 } from 'lucide-react';
 import SectionEyebrow from './SectionEyebrow';
 
 export default function Section03Opportunites() {
-  const partnerOffers = [
-    {
-      icon: Shield,
-      kicker: "OFFRE PARTENAIRE 01",
-      title: "ASSURANCE COMMERCE & PARTICULIERS",
-      desc: "Un client ou confrère recherche une assurance multirisque, une flotte pro ou une complémentaire santé : vous transmettez son contact, Services Indep s'occupe de tout.",
-    },
-    {
-      icon: Bell,
-      kicker: "OFFRE PARTENAIRE 02",
-      title: "ALARME & TÉLÉSURVEILLANCE",
-      desc: "Même principe pour la sécurité des locaux commerciaux et des résidences privées : vous signalez l'intérêt, Services Indep réalise l'étude et finalise le dossier.",
-    },
-  ];
+  const offer = {
+    kicker: "OFFRE PARTENAIRE",
+    title: "ASSURANCE COMMERCE & PARTICULIERS",
+    desc: "Un client ou confrère cherche une meilleure assurance sans y passer sa journée : vous transmettez son contact, un conseiller étudie sa situation et lui remet un devis gratuit, sans engagement.",
+  };
+
+  const particuliers = {
+    desc: "Protéger son foyer, sa santé et ses revenus.",
+    items: [
+      { icon: Landmark, title: "Assurance emprunteur", desc: "Son crédit immobilier" },
+      { icon: HeartPulse, title: "Santé & mutuelle", desc: "Lui et sa famille" },
+      { icon: Umbrella, title: "Prévoyance", desc: "Ses revenus protégés" },
+      { icon: Scale, title: "Protection juridique", desc: "Conseil et défense" },
+      { icon: Building2, title: "Multirisque immeuble", desc: "Son bien immobilier" },
+    ],
+  };
+
+  const professionnels = {
+    desc: "Protéger son activité, lui-même et ses salariés.",
+    items: [
+      { icon: Briefcase, title: "Multirisques pro", desc: "Locaux et matériel" },
+      { icon: HeartHandshake, title: "Prévoyance", desc: "Dirigeant et/ou salariés" },
+      { icon: Users, title: "Santé", desc: "Dirigeant et/ou salariés" },
+      { icon: LayoutGrid, title: "Autres produits", desc: "Un besoin spécifique" },
+    ],
+  };
+
+  const trustPoints = ["Devis gratuit", "Sans engagement", "Rappel sous 24h ouvrées"];
 
   /* Les cinq étapes étaient codées en dur dans le JSX, en doublon d'un tableau
      `steps` obsolète qui n'était jamais lu. Le tableau ci-dessous reprend mot
@@ -55,7 +69,7 @@ export default function Section03Opportunites() {
         {/* En-Tête Centré */}
         <div className="mb-12 sm:mb-16 text-center max-w-7xl mx-auto">
           <div className="mb-6">
-            <SectionEyebrow dot>03 · OPPORTUNITÉS COMPLÉMENTAIRES</SectionEyebrow>
+            <SectionEyebrow number="03">OPPORTUNITÉS COMPLÉMENTAIRES</SectionEyebrow>
           </div>
 
           <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight text-foreground-intense mb-6">
@@ -63,50 +77,107 @@ export default function Section03Opportunites() {
           </h2>
 
           <p className="text-lg sm:text-xl text-foreground-muted leading-relaxed font-normal mx-auto max-w-6xl">
-            Deux services premium à proposer à votre clientèle locale, sans avoir à gérer le dossier vous-même.
+            Un service premium à proposer à votre clientèle locale, sans avoir à gérer le dossier vous-même.
           </p>
         </div>
 
-        {/* Les 2 offres partenaires */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 mb-20">
-          {partnerOffers.map((offer) => {
-            const Icon = offer.icon;
-            return (
-              <Card
-                key={offer.kicker}
-                className="[--card-radius:1.75rem] shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group"
-                contentProps={{
-                  className:
-                    'p-8 sm:p-12 border-2 border-border-subtle group-hover:border-primary-base transition-colors flex flex-col justify-between relative overflow-hidden',
-                }}
-              >
-                <div className="relative z-10">
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="w-16 h-16 rounded-2xl bg-primary-subtle text-primary-base border border-primary-soft flex items-center justify-center shadow-xs group-hover:scale-110 transition-transform duration-300">
-                      <Icon className="w-8 h-8" />
-                    </div>
-                    <Badge
-                      variant="success"
-                      className="px-3.5 py-1.5 text-xs font-black uppercase tracking-wider bg-emerald-50 text-emerald-800 border border-emerald-200"
-                    >
-                      Commission : +150 € / contrat
-                    </Badge>
-                  </div>
+        {/* Offre partenaire unique : Assurance */}
+        <Card
+          className="[--card-radius:1.75rem] shadow-sm mb-20"
+          contentProps={{ className: 'p-8 sm:p-12 lg:p-16' }}
+        >
+          <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6 mb-10 pb-10 border-b border-border-subtle">
+            <div className="flex items-start gap-5">
+              <div className="w-16 h-16 rounded-2xl bg-primary-subtle text-primary-base border border-primary-soft flex items-center justify-center shadow-xs shrink-0">
+                <Shield className="w-8 h-8" />
+              </div>
+              <div>
+                <span className="text-xs sm:text-sm font-black uppercase tracking-widest text-primary-base block mb-2">
+                  {offer.kicker}
+                </span>
+                <CardTitle className="font-display font-black text-2xl sm:text-3xl text-foreground-intense mb-3">
+                  {offer.title}
+                </CardTitle>
+                <CardDescription className="text-base sm:text-lg text-foreground-strong leading-relaxed font-normal max-w-3xl">
+                  {offer.desc}
+                </CardDescription>
+              </div>
+            </div>
+            <Badge
+              variant="success"
+              className="px-3.5 py-1.5 text-xs font-black uppercase tracking-wider bg-emerald-50 text-emerald-800 border border-emerald-200 shrink-0 self-start"
+            >
+              Commission : +150 € / contrat
+            </Badge>
+          </div>
 
-                  <span className="text-xs sm:text-sm font-black uppercase tracking-widest text-primary-base block mb-2">
-                    {offer.kicker}
-                  </span>
-                  <CardTitle className="font-display font-black text-2xl sm:text-3xl text-foreground-intense mb-3">
-                    {offer.title}
-                  </CardTitle>
-                  <CardDescription className="text-base sm:text-lg text-foreground-strong leading-relaxed font-normal">
-                    {offer.desc}
-                  </CardDescription>
-                </div>
-              </Card>
-            );
-          })}
-        </div>
+          {/* Particuliers */}
+          <div className="mb-10">
+            <div className="flex items-center gap-3 mb-1">
+              <ShieldCheck className="w-5 h-5 text-primary-base shrink-0" />
+              <h3 className="font-display font-black text-xl text-foreground-intense">Particuliers</h3>
+            </div>
+            <p className="text-sm text-foreground-muted mb-6">{particuliers.desc}</p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+              {particuliers.items.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <div
+                    key={item.title}
+                    className="p-4 rounded-2xl bg-primary-subtle/30 border border-primary-soft/70 hover:border-primary-base/40 hover:bg-primary-subtle/50 transition-all"
+                  >
+                    <div className="w-9 h-9 rounded-xl bg-white border border-primary-soft text-primary-base flex items-center justify-center mb-3 shadow-xs">
+                      <Icon className="w-4.5 h-4.5" />
+                    </div>
+                    <h4 className="font-display font-bold text-sm text-foreground-intense leading-snug">
+                      {item.title}
+                    </h4>
+                    <p className="text-xs text-foreground-muted mt-0.5 leading-snug">{item.desc}</p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Professionnels */}
+          <div>
+            <div className="flex items-center gap-3 mb-1">
+              <Briefcase className="w-5 h-5 text-primary-base shrink-0" />
+              <h3 className="font-display font-black text-xl text-foreground-intense">Professionnels</h3>
+            </div>
+            <p className="text-sm text-foreground-muted mb-6">{professionnels.desc}</p>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              {professionnels.items.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <div
+                    key={item.title}
+                    className="p-4 rounded-2xl bg-primary-subtle/30 border border-primary-soft/70 hover:border-primary-base/40 hover:bg-primary-subtle/50 transition-all"
+                  >
+                    <div className="w-9 h-9 rounded-xl bg-white border border-primary-soft text-primary-base flex items-center justify-center mb-3 shadow-xs">
+                      <Icon className="w-4.5 h-4.5" />
+                    </div>
+                    <h4 className="font-display font-bold text-sm text-foreground-intense leading-snug">
+                      {item.title}
+                    </h4>
+                    <p className="text-xs text-foreground-muted mt-0.5 leading-snug">{item.desc}</p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Bandeau de réassurance */}
+          <Separator className="my-10" />
+          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
+            {trustPoints.map((point) => (
+              <div key={point} className="inline-flex items-center gap-2 text-sm font-bold text-foreground-strong">
+                <CheckCircle2 className="w-4 h-4 text-primary-base shrink-0" />
+                <span>{point}</span>
+              </div>
+            ))}
+          </div>
+        </Card>
 
         {/* Déroulement 5 étapes épuré & mis en valeur */}
         <Card
@@ -181,15 +252,9 @@ export default function Section03Opportunites() {
               </div>
 
               <div className="flex items-center gap-3 self-end md:self-auto shrink-0 mt-4 md:mt-0">
-                <SectionEyebrow tone="sm" className="hidden sm:inline-flex px-4 py-2 rounded-xl shadow-xs">
+                <SectionEyebrow tone="sm" className="px-4 py-2 rounded-xl shadow-xs">
                   Revenu Passif
                 </SectionEyebrow>
-                <Badge
-                  variant="primary"
-                  className="font-display font-black text-base sm:text-lg px-4 py-2 rounded-xl shadow-md"
-                >
-                  +150 € net
-                </Badge>
               </div>
             </div>
           </div>

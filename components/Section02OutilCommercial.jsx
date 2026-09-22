@@ -1,5 +1,5 @@
-import { Button, Card, CardTitle, CardDescription } from '@appica/ui-react';
-import { ShoppingBag, List, ShoppingCart, Store, ExternalLink, Sparkles } from 'lucide-react';
+import { Alert, AlertIcon, AlertDescription, Button, Card, CardTitle, CardDescription } from '@appica/ui-react';
+import { ShoppingBag, List, ShoppingCart, Store, ExternalLink, Sparkles, ShieldCheck, Smartphone, Send, Bell, PackageCheck } from 'lucide-react';
 import SectionEyebrow from './SectionEyebrow';
 
 export default function Section02OutilCommercial() {
@@ -28,6 +28,14 @@ export default function Section02OutilCommercial() {
     },
   ];
 
+  const reservationSteps = [
+    { num: "1", icon: Smartphone, title: "Vitrine mobile", desc: "Vous mettez en avant 20 à 30 produits phares à forte marge." },
+    { num: "2", icon: Send, title: "Réservation client", desc: "Le client réserve depuis son téléphone : nom et numéro, sans paiement en ligne." },
+    { num: "3", icon: Bell, title: "Alerte comptoir", desc: "Vous recevez la commande en temps réel sur votre tableau de bord." },
+    { num: "4", icon: PackageCheck, title: "Préparation", desc: "Vous préparez la pochette au nom du client pendant les heures creuses." },
+    { num: "5", icon: Store, title: "Retrait & caisse", desc: "Le client retire et vous encaissez sur votre caisse habituelle en 15 secondes." },
+  ];
+
   const guarantees = [
     { num: "01", title: "Horaires 7j/7", desc: "Certifiés en temps réel" },
     { num: "02", title: "Rayons & Relais", desc: "FDJ, colis, presse, vapotage" },
@@ -41,7 +49,7 @@ export default function Section02OutilCommercial() {
         {/* En-Tête Centré */}
         <div className="mb-12 sm:mb-16 text-center max-w-7xl mx-auto">
           <div className="mb-6">
-            <SectionEyebrow dot>02 · UN SITE QUI DEVIENT UN OUTIL COMMERCIAL</SectionEyebrow>
+            <SectionEyebrow number="02">UN SITE QUI DEVIENT UN OUTIL COMMERCIAL</SectionEyebrow>
           </div>
 
           <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight text-foreground-intense mb-6">
@@ -53,16 +61,14 @@ export default function Section02OutilCommercial() {
           </p>
         </div>
 
-        <div className="mb-16 text-center">
-          <div className="mb-3">
-            <SectionEyebrow tone="sm">CE QUE VOS CLIENTS PEUVENT Y FAIRE</SectionEyebrow>
-          </div>
-          <h3 className="font-display text-4xl sm:text-5xl lg:text-6xl font-black text-foreground-intense tracking-tight">
-            Un site qui rend service au quotidien
-          </h3>
-          <p className="text-base sm:text-lg text-foreground-muted mt-4 max-w-5xl mx-auto font-medium">
-            Le fonctionnement est entièrement personnalisé pour chaque établissement. Rien n'est imposé : les modules sont activés selon vos priorités.
-          </p>
+        {/* Simple légende de transition plutôt qu'un second grand titre :
+            l'en-tête et cette grille défendaient chacun leur propre pilule +
+            H2 + paragraphe, ce qui créait deux blocs concurrents. */}
+        <div className="flex items-center gap-4 mb-8 max-w-6xl mx-auto">
+          <span className="text-xs sm:text-sm font-black uppercase tracking-widest text-foreground-subtle whitespace-nowrap">
+            Ce que vos clients peuvent y faire
+          </span>
+          <span className="h-px flex-1 bg-border" aria-hidden="true" />
         </div>
 
         {/* Grille 4 fonctionnalités grand format */}
@@ -93,6 +99,62 @@ export default function Section02OutilCommercial() {
             );
           })}
         </div>
+
+        {/* Comment fonctionne la réservation express au comptoir : lève
+            l'objection la plus fréquente des buralistes (peur de devoir
+            connecter leur logiciel de caisse). */}
+        <Card
+          className="[--card-radius:1.75rem] shadow-sm mb-20"
+          contentProps={{ className: 'p-8 sm:p-12 lg:p-14' }}
+        >
+          <div className="text-center mb-10 max-w-4xl mx-auto">
+            <div className="mb-3">
+              <SectionEyebrow tone="sm">RÉSERVATION EXPRESS AU COMPTOIR</SectionEyebrow>
+            </div>
+            <h3 className="font-display text-2xl sm:text-3xl lg:text-4xl font-black text-foreground-intense tracking-tight">
+              Comment ça fonctionne, concrètement ?
+            </h3>
+          </div>
+
+          <Alert
+            variant="info"
+            layout="inline"
+            className="rounded-2xl bg-primary-subtle/50 border border-primary-soft text-sm text-foreground-strong mb-10 max-w-4xl mx-auto"
+          >
+            <AlertIcon>
+              <ShieldCheck className="w-5 h-5 text-primary-base shrink-0" />
+            </AlertIcon>
+            <AlertDescription className="text-foreground-strong">
+              <strong className="text-foreground-intense font-bold">Aucune connexion à votre logiciel de caisse</strong> (Strator, Bimedia, Devlyx). Le système fonctionne de façon 100 % autonome : zéro coût de licence, zéro risque de panne caisse.
+            </AlertDescription>
+          </Alert>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+            {reservationSteps.map((step) => {
+              const Icon = step.icon;
+              return (
+                <div key={step.num} className="text-center">
+                  <div className="relative w-14 h-14 rounded-2xl bg-primary-subtle border border-primary-soft text-primary-base flex items-center justify-center mx-auto mb-4 shadow-xs">
+                    <Icon className="w-6 h-6" />
+                    <span className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-foreground-intense text-white text-[11px] font-black flex items-center justify-center">
+                      {step.num}
+                    </span>
+                  </div>
+                  <h4 className="font-display font-bold text-sm text-foreground-intense mb-1.5">
+                    {step.title}
+                  </h4>
+                  <p className="text-xs text-foreground-muted leading-relaxed">
+                    {step.desc}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+
+          <p className="text-xs sm:text-sm text-foreground-muted text-center mt-10 max-w-3xl mx-auto leading-relaxed">
+            Le client réserve en ligne sans paiement à distance ; vous préparez sa commande pendant les heures creuses et encaissez directement sur votre caisse habituelle au retrait, comme pour un achat standard en boutique.
+          </p>
+        </Card>
 
         {/* 3. CARTE DE CONVERSION DIRECTE (SANS APERÇU, LIEN DIRECT EN DIRECT) FOND BLANC LUXE */}
         <Card

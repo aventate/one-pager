@@ -18,7 +18,11 @@ export default function EspaceBuralistePage() {
           content="Espace Buraliste privé : suivi en direct des commissions d'affaires partenaires (Assurance & Alarme), retrait express Click & Collect et tendances d'achats locales."
         />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-        <link rel="icon" href="/favicon.ico" />
+        <meta name="theme-color" content="#c6283c" />
+        <link rel="icon" href="/logos/icon-aventate-rouge.svg" type="image/svg+xml" />
+        {/* Démo à données fictives : pas d'intérêt à l'indexer, et éviter
+            qu'elle ressorte dans une recherche comme un vrai commerce. */}
+        <meta name="robots" content="noindex, nofollow" />
       </Head>
 
       {/* Halo de lumière rouge Aventate OS · Épuré, doux et reposant */}

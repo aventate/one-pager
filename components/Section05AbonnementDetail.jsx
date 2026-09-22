@@ -32,7 +32,7 @@ export default function Section05AbonnementDetail() {
         {/* En-Tête Centré Compact */}
         <div className="mb-8 sm:mb-10 text-center max-w-6xl mx-auto">
           <div className="mb-4">
-            <SectionEyebrow dot>05 · VOTRE ABONNEMENT EN DÉTAIL</SectionEyebrow>
+            <SectionEyebrow number="05">VOTRE ABONNEMENT EN DÉTAIL</SectionEyebrow>
           </div>
 
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight text-foreground-intense mb-3">

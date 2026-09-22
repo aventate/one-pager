@@ -1,5 +1,5 @@
-import { Card, CardTitle, CardDescription, Separator } from '@appica/ui-react';
-import { Search, Clock, Package, Sparkles, HeartHandshake, Layers, Globe, Compass, UserCheck, CheckCircle2, TrendingDown, TrendingUp, Check, X } from 'lucide-react';
+import { BackgroundPattern, BorderBeam, Card, CardTitle, CardDescription, Separator, TextAnimate } from '@appica/ui-react';
+import { Search, Clock, Package, Sparkles, HeartHandshake, Layers, Globe, Compass, UserCheck, CheckCircle2, TrendingDown, TrendingUp, Check, X, ArrowDown } from 'lucide-react';
 import SectionEyebrow from './SectionEyebrow';
 
 export default function Section01Presence() {
@@ -99,40 +99,55 @@ export default function Section01Presence() {
 
   return (
     <section id="section-01" className="pt-20 sm:pt-24 border-b border-border-subtle bg-white">
-      <div className="w-full max-w-[1780px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+      {/* Motif de points en fond de hero, avec halo qui suit le curseur :
+          première impression plus "produit premium" qu'un fond blanc plat. */}
+      <div className="relative overflow-hidden">
+        <BackgroundPattern
+          variant="dots"
+          spotlight
+          cellSize={26}
+          className="absolute inset-0 text-primary-soft/70 [mask-image:radial-gradient(ellipse_70%_60%_at_50%_20%,black_40%,transparent_100%)]"
+        />
 
-        {/* En-Tête Centré */}
-        <div className="mb-12 sm:mb-16 text-center max-w-7xl mx-auto">
-          <div className="mb-6">
-            <SectionEyebrow dot>01 · VOTRE COMMERCE SUR INTERNET</SectionEyebrow>
+        <div className="relative w-full max-w-[1780px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+
+          {/* En-Tête Centré */}
+          <div className="mb-12 sm:mb-16 text-center max-w-7xl mx-auto">
+            <div className="mb-6">
+              <SectionEyebrow number="01">VOTRE COMMERCE SUR INTERNET</SectionEyebrow>
+            </div>
+
+            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight text-foreground-intense mb-6">
+              Votre commerce doit aussi{' '}
+              <TextAnimate effect="shimmer" className="text-primary-base">
+                exister sur Internet.
+              </TextAnimate>
+            </h1>
+
+            <p className="text-lg sm:text-xl text-foreground-muted leading-relaxed font-normal mb-10 mx-auto max-w-6xl">
+              Aujourd’hui, un client cherche, compare et se renseigne sur Internet avant même de pousser la porte d’un commerce. <strong>Votre site devient votre vitrine digitale</strong> : il présente votre commerce, vos services et vos informations pratiques, à toute heure.
+            </p>
+
+            {/* Les 3 garanties : colonnes égales pour un alignement robuste
+                quel que soit le nombre de lignes que prend chaque texte. */}
+            <Separator className="mb-8" />
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-8 text-base sm:text-lg text-foreground-strong font-bold mx-auto max-w-5xl">
+              <div className="flex items-center justify-center gap-3">
+                <CheckCircle2 className="w-5 h-5 text-primary-base shrink-0" />
+                <span className="leading-tight text-left">Visible sur Google Maps 24h/24</span>
+              </div>
+              <div className="flex items-center justify-center gap-3">
+                <CheckCircle2 className="w-5 h-5 text-primary-base shrink-0" />
+                <span className="leading-tight text-left">Zéro maintenance pour vous</span>
+              </div>
+              <div className="flex items-center justify-center gap-3">
+                <CheckCircle2 className="w-5 h-5 text-primary-base shrink-0" />
+                <span className="leading-tight text-left">Le client vous trouve facilement</span>
+              </div>
+            </div>
           </div>
 
-          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight text-foreground-intense mb-6">
-            Votre commerce doit aussi <span className="text-gradient-aventate">exister sur Internet.</span>
-          </h1>
-
-          <p className="text-lg sm:text-xl text-foreground-muted leading-relaxed font-normal mb-10 mx-auto max-w-6xl">
-            Aujourd’hui, un client cherche, compare et se renseigne sur Internet avant même de pousser la porte d’un commerce. <strong>Votre site devient votre vitrine digitale</strong> : il présente votre commerce, vos services et vos informations pratiques, à toute heure.
-          </p>
-
-          {/* Les 3 garanties parfaitement alignées */}
-          <Separator className="mb-8" />
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10 text-base sm:text-lg text-foreground-strong font-bold mx-auto">
-            <div className="inline-flex items-center gap-3">
-              <CheckCircle2 className="w-5 h-5 text-primary-base shrink-0" />
-              <span className="leading-tight">Visible sur Google Maps 24h/24</span>
-            </div>
-            <div className="inline-flex items-center gap-3">
-              <CheckCircle2 className="w-5 h-5 text-primary-base shrink-0" />
-              <span className="leading-tight">Zéro maintenance pour vous</span>
-            </div>
-            <div className="inline-flex items-center gap-3">
-              <CheckCircle2 className="w-5 h-5 text-primary-base shrink-0" />
-              <span className="leading-tight">Le client vous trouve facilement</span>
-            </div>
-          </div>
         </div>
-
       </div>
 
       {/* 2. Comparatif Neuro-Vente Expansif Fond Clair */}
@@ -237,38 +252,82 @@ export default function Section01Presence() {
             })}
           </div>
 
-          {/* Parcours Linéaire */}
+          {/* Parcours client immersif : numéros fantômes en fond, nœuds
+              circulaires reliés par une ligne continue (desktop) ou des
+              flèches verticales (mobile), plutôt que 4 cartes identiques. */}
           <Card
             className="[--card-radius:1.5rem] shadow-xs"
-            contentProps={{ className: 'p-8 sm:p-14' }}
+            contentProps={{ className: 'p-8 sm:p-14 overflow-visible' }}
           >
-            <span className="text-xs sm:text-sm font-black uppercase tracking-wider text-foreground-subtle block mb-10">
+            <span className="text-xs sm:text-sm font-black uppercase tracking-wider text-foreground-subtle block mb-12 sm:mb-16">
               Du premier réflexe du client à sa venue dans votre commerce
             </span>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {steps.map((s, idx) => {
-                const Icon = s.icon;
-                return (
-                  <div
-                    key={idx}
-                    className="p-7 bg-primary-subtle/30 rounded-2xl border border-primary-soft/70 flex flex-col items-center text-center hover:border-primary-base/40 transition-all"
-                  >
-                    <div className="w-12 h-12 rounded-2xl bg-white border border-primary-soft text-primary-base flex items-center justify-center mb-4 shadow-xs">
-                      <Icon className="w-6 h-6" />
+            <div className="relative">
+              {/* Ligne de parcours continue reliant les 4 étapes (desktop),
+                  avec un filet de lumière qui la parcourt en continu. */}
+              <div
+                className="hidden lg:block absolute top-8 left-[12.5%] right-[12.5%] h-0.5 rounded-full bg-border-subtle overflow-hidden"
+                aria-hidden="true"
+              >
+                <div className="h-full w-1/4 bg-gradient-to-r from-transparent via-primary-base to-transparent animate-journey-beam" />
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-4 gap-10 lg:gap-6">
+                {steps.map((s, idx) => {
+                  const Icon = s.icon;
+                  return (
+                    <div key={idx}>
+                      <div
+                        className="relative flex flex-col items-center text-center group [perspective:900px]"
+                      >
+                        {/* Numéro en filigrane : contour visible plutôt qu'un
+                            aplat trop pâle, pour rester lisible en fond. */}
+                        <span
+                          className="absolute -top-8 sm:-top-9 font-display text-7xl sm:text-8xl font-black text-transparent select-none pointer-events-none [-webkit-text-stroke:1.5px_var(--primary-muted)] opacity-70 transition-opacity duration-300 group-hover:opacity-100"
+                          aria-hidden="true"
+                        >
+                          {s.num}
+                        </span>
+
+                        {/* Contenu de l'étape : léger effet de bascule 3D au
+                            survol, au lieu d'un simple agrandissement plat. */}
+                        <div className="transition-transform duration-500 ease-out group-hover:[transform:rotateX(8deg)_rotateY(-8deg)_translateY(-4px)] [transform-style:preserve-3d]">
+                          <BorderBeam
+                            className="rounded-full w-16 h-16 mb-5 mx-auto"
+                            color="var(--primary)"
+                            length={30}
+                            thickness={2}
+                            speed={6}
+                            delay={idx * -1.4}
+                          >
+                            <div className="relative z-10 w-full h-full rounded-full bg-white border-2 border-primary-soft text-primary-base flex items-center justify-center shadow-md transition-colors duration-300 group-hover:border-primary-base">
+                              <Icon className="w-7 h-7" />
+                            </div>
+                          </BorderBeam>
+
+                          <h4 className="relative font-display font-black text-lg text-foreground-intense">
+                            {s.name}
+                          </h4>
+                          <span className="relative text-xs font-black text-primary-strong mt-1 uppercase tracking-wider block">
+                            {s.role}
+                          </span>
+                          <span className="relative text-sm text-foreground-muted mt-2 leading-relaxed max-w-[220px] block mx-auto">
+                            {s.detail}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Connecteur vertical entre étapes, mobile uniquement */}
+                      {idx < steps.length - 1 && (
+                        <div className="flex lg:hidden flex-col items-center justify-center py-4" aria-hidden="true">
+                          <ArrowDown className="w-5 h-5 text-primary-base/60" />
+                        </div>
+                      )}
                     </div>
-                    <h4 className="font-display font-black text-lg text-foreground-intense">
-                      {s.name}
-                    </h4>
-                    <span className="text-xs font-black text-primary-strong mt-1 uppercase tracking-wider">
-                      {s.role}
-                    </span>
-                    <span className="text-sm text-foreground-muted mt-2 leading-relaxed">
-                      {s.detail}
-                    </span>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
           </Card>
 

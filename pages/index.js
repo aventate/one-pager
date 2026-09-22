@@ -12,19 +12,58 @@ import Section06ClosingContact from '../components/Section06ClosingContact';
 import ContactModal from '../components/ContactModal';
 import FloatingDock from '../components/FloatingDock';
 
+// Définir NEXT_PUBLIC_SITE_URL une fois le nom de domaine définitif connu
+// (Vercel, domaine personnalisé…) : il alimente l'URL canonique et l'image
+// Open Graph. En développement, il retombe sur localhost sans casser le build.
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://votre-domaine.fr';
+const PAGE_TITLE = 'Solution Digitale Commerces & Buralistes | SERVICES INDEP × AVENTATE SAS';
+const PAGE_DESCRIPTION =
+  "Votre commerce doit aussi exister sur Internet. Site vitrine clé en main, commandes Click & Collect, opportunités commissionnées et simulateur de rentabilité financière.";
+
 export default function Home() {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-white text-foreground-intense font-sans relative">
       <Head>
-        <title>Solution Digitale Commerces &amp; Buralistes | SERVICES INDEP × AVENTATE SAS</title>
-        <meta
-          name="description"
-          content="Votre commerce doit aussi exister sur Internet. Site vitrine clé en main, commandes Click & Collect, opportunités commissionnées et simulateur de rentabilité financière."
-        />
+        <title>{PAGE_TITLE}</title>
+        <meta name="description" content={PAGE_DESCRIPTION} />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-        <link rel="icon" href="/favicon.ico" />
+        <meta name="theme-color" content="#c6283c" />
+        <link rel="canonical" href={SITE_URL} />
+        <link rel="icon" href="/logos/icon-aventate-rouge.svg" type="image/svg+xml" />
+
+        {/* Open Graph / réseaux sociaux */}
+        <meta property="og:type" content="website" />
+        <meta property="og:locale" content="fr_FR" />
+        <meta property="og:site_name" content="Services Indep × Aventate" />
+        <meta property="og:title" content={PAGE_TITLE} />
+        <meta property="og:description" content={PAGE_DESCRIPTION} />
+        <meta property="og:url" content={SITE_URL} />
+        <meta property="og:image" content={`${SITE_URL}/logos/logo-aventate-rouge.svg`} />
+
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={PAGE_TITLE} />
+        <meta name="twitter:description" content={PAGE_DESCRIPTION} />
+        <meta name="twitter:image" content={`${SITE_URL}/logos/logo-aventate-rouge.svg`} />
+
+        {/* Données structurées : aide les moteurs à identifier l'éditeur
+            du site plutôt que de deviner depuis le texte de la page. */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Organization',
+              name: 'Services Indep × Aventate',
+              url: SITE_URL,
+              logo: `${SITE_URL}/logos/logo-aventate-rouge.svg`,
+              description: PAGE_DESCRIPTION,
+              areaServed: 'FR',
+            }),
+          }}
+        />
       </Head>
 
       {/* Halo de lumière rouge Aventate OS · Épuré, doux et reposant */}
@@ -50,7 +89,7 @@ export default function Home() {
         <SectionRoiSimulator onOpenContact={() => setIsContactModalOpen(true)} />
 
         {/* 04 — Votre offre : Création + Formules d'abonnement + 9 piliers techniques (Page 4 PDF) */}
-        <Section04OffreTarifs />
+        <Section04OffreTarifs onOpenContact={() => setIsContactModalOpen(true)} />
 
         {/* 05 — Votre abonnement en détail : 4h incluses + Inclus/Non inclus (Page 5 PDF) */}
         <Section05AbonnementDetail />
